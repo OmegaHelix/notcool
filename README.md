@@ -5,6 +5,9 @@
 
 <br/><br/><br/><br/>
 
+# !Cool
+**Authors** Dakota, Christian, Ahmed, Jeremy, Taylen, Evan
+ENSE 496AB taking over:
 # Weekend Warriors
 
 **Authors:** Malkiat Singh, Mhd Salim Bakri, Mohamed Aly
