@@ -15,7 +15,6 @@ namespace eIdeas.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    IdeaNo = table.Column<int>(nullable: false),
                     Title = table.Column<string>(nullable: true),
                     Solution = table.Column<string>(nullable: true),
                     UploadDate = table.Column<DateTime>(nullable: false)
