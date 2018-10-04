@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Sign Up Page";
+}
+
+<div class="limiter">
+    <div class="container-login100" style="background-image: url('~/image/bg-01.jpg');">
+        <div class="wrap-login100">
+            <div class="login100-form validate-form">
+                <span class="login100-form-logo">
+                    <img class="small_logo" src="loggo.png" alt="mini-tweet loggo image">
+                </span>
+
+                <p class="error"><?=$error?></p>
+                <form class="wrap-image100" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="submittedS" value="1" />
+                    <div class="wrap-input100 validate-input" id="form1" data-validate="Enter Email">
+                        <input id="email" class="input100" type="text" name="email" placeholder="Email">
+                        <span class="focus-input100" data-placeholder="📧"></span>
+                        <label id="email_msg" class="err_msg"></label>
+                    </div>
+
+                    <div class="wrap-input100 validate-input" id="form2" data-validate="Enter username">
+                        <input id="username" class="input100" type="text" name="username" placeholder="Username">
+                        <span class="focus-input100" data-placeholder="👤"></span>
+                        <label id="user_msg" class="err_msg"></label>
+                    </div>
+
+                    <div class="wrap-input100 validate-input notMember" id="form3">
+                        Date of birth
+                        <table data-validate="Enter username">
+                            <tr>
+                                <td> <input id="mth" class="input100" type="text" name="mth" placeholder="MM" autocomplete="off" size=10 /></td>
+                                <td> <input id="dth" class="input100" type="text" name="dth" placeholder="DD" autocomplete="off" size=10 /></td>
+                                <td> <input id="yth" class="input100" type="text" name="yth" placeholder="YYYY" autocomplete="off" size=10 /></td>
+                            </tr>
+                        </table>
+                        <label id="date_msg" class="err_msg"></label>
+                    </div>
+
+                    <div class="notMember"> Select image to upload: </div>
+                    <input type="file" name="fileToUpload" id="fileToUpload">
+
+
+
+                    <div class="wrap-input100 validate-input" id="form4" data-validate="Enter Password">
+                        <input id="pwd" class="input100" type="password" name="pwd" placeholder="Password">
+                        <span class="focus-input100" data-placeholder="🔒"></span>
+                        <label id="pwd_msg" class="err_msg"></label>
+                    </div>
+
+
+                    <div class="wrap-input100 validate-input" id="form5" data-validate="Confirm Password">
+                        <input id="cpwd" class="input100" type="password" name="cpwd" placeholder="Confirm Password">
+                        <span class="focus-input100" data-placeholder="🔒"></span>
+                        <label id="cpwd_msg" class="err_msg"></label>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <input class="login100-form-btn" type="submit" value="Sign up">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
