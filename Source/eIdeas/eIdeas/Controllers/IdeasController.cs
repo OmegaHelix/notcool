@@ -114,12 +114,12 @@ namespace eIdeas.Controllers
             {
                 idea.Name = "Anon";
             }
-            idea.Status = "Pending";
             idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
                 {
+                    
                     _context.Update(idea);
                     await _context.SaveChangesAsync();
                 }

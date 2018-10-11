@@ -61,9 +61,15 @@
                 @Html.DisplayFor(modelItem => item.UploadDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                @if (item.Name == User.Identity.Name)
+                {<a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
+                    <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                }
+                else
+                {
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                }
             </td>
         </tr>
 }

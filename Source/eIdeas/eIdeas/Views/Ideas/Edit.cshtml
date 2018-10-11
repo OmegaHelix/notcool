@@ -13,6 +13,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
+            
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -27,6 +28,15 @@
                 <label asp-for="Solution" class="control-label"></label>
                 <textarea asp-for="Solution" class="form-control"></textarea>
                 <span asp-validation-for="Solution" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="Status">
+                    <option value="Pending">Pending</option>
+                    <option value="Plan">Plan</option>
+                    <option value="Do">Do</option>
+                    <option value="Check">Check</option>
+                    <option value="Act">Act</option>
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
