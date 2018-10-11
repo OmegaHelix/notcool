@@ -70,7 +70,7 @@ namespace eIdeas
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Ideas}/{action=Index}/{id?}");
             });
         }
     }
