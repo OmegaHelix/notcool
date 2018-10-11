@@ -22,7 +22,7 @@
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container-fluid" style="padding-right:2%">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -46,12 +46,33 @@
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - eIdeas</p>
-        </footer>
+    <div id="BodyContainer" style="margin-top:1%;">
+        
+        <div class="container body-content"style="width:100%">
+            <div class="row">
+                <div class="col-lg-2" style="min-width:18rem;">
+                    <div class="col-xs-2"></div>
+                    <div class="col-xs-8">
+                        <partial name="_UserCardPartial" />
+                    </div>
+                    <div class="col-xs-2"></div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">test</div>
+                            <div class="row">test</div>
+                            <div class="row">test</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9" style="padding-right:0%; margin-left:4%;margin-right:4%">
+                    @RenderBody()
+                </div>
+            </div>
+                <hr />
+                <footer class="navbar-fixed-bottom">
+                    <p>&copy; 2018 - eIdeas</p>
+                </footer>
+            </div>
     </div>
 
     <environment include="Development">
