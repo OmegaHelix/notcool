@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Views\Shared\_HorizontalNavPartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_UserCardPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

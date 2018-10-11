@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eIdeas.Data;
 using eIdeas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eIdeas.Controllers
 {
+    [Authorize]
     public class IdeasController : Controller
     {
         private readonly IdeasContext _context;

@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+<div class="spacer" style="padding-top:5%;padding-bottom:5%;"></div>
+<div class="row">
+    <a asp-area="" asp-controller="Ideas" asp-action="Index" class="btn btn-lrg btn-primary" style="margin-right:5%;margin-left:5%;width:100%;">Ideas</a>
+</div>
+<div class="row">
+    <a class="btn btn-lrg btn-primary" style="margin-right:5%;margin-left:5%;width:100%;">test</a>
+</div>
+<div class="row">
+    <a class="btn btn-lrg btn-primary " style="margin-right:5%;margin-left:5%;width:100%;">test</a>
+</div>
+}
