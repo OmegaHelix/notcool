@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eIdeas.Data;
 using eIdeas.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eIdeas.Controllers
 {
+    [Authorize]
     public class IdeasController : Controller
     {
         private readonly IdeasContext _context;
@@ -56,7 +59,14 @@ namespace eIdeas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Title,Problem,Solution,Status,UploadDate")] Idea idea)
         {
-            
+            if (User.Identity.Name != null)
+            {
+                idea.Name = User.Identity.Name;
+            }
+            else
+            {
+                idea.Name = "Anon";
+            }
             idea.Status = "Pending";
             idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
