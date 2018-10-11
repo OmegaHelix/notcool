@@ -100,13 +100,22 @@ namespace eIdeas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,IdeaNo,Title,Solution,UploadDate")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Title,Problem,Solution,Status,UploadDate")] Idea idea)
         {
             if (id != idea.ID)
             {
                 return NotFound();
             }
-
+            if (User.Identity.Name != null)
+            {
+                idea.Name = User.Identity.Name;
+            }
+            else
+            {
+                idea.Name = "Anon";
+            }
+            idea.Status = "Pending";
+            idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
