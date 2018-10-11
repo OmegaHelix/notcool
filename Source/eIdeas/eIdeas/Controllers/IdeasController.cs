@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eIdeas.Data;
 using eIdeas.Models;
-<<<<<<< HEAD
-=======
+
 using Microsoft.AspNetCore.Identity;
->>>>>>> 124b43009c806bb701062f4633c4e8d3af2c3557
 using Microsoft.AspNetCore.Authorization;
 
 namespace eIdeas.Controllers
