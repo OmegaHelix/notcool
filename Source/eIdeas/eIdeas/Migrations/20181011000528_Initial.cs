@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace eIdeas.Migrations
 {
-    public partial class IdeaMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,9 @@ namespace eIdeas.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
                     Title = table.Column<string>(nullable: true),
+                    Problem = table.Column<string>(nullable: true),
                     Solution = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
                     UploadDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

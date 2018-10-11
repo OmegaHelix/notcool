@@ -10,8 +10,8 @@ using eIdeas.Data;
 namespace eIdeas.Migrations
 {
     [DbContext(typeof(IdeasContext))]
-    [Migration("20181004022516_IdeaMigration")]
-    partial class IdeaMigration
+    [Migration("20181011000528_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,11 +27,13 @@ namespace eIdeas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdeaNo");
-
                     b.Property<string>("Name");
 
+                    b.Property<string>("Problem");
+
                     b.Property<string>("Solution");
+
+                    b.Property<string>("Status");
 
                     b.Property<string>("Title");
 

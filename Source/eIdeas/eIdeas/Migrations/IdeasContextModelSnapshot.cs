@@ -25,11 +25,13 @@ namespace eIdeas.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdeaNo");
-
                     b.Property<string>("Name");
 
+                    b.Property<string>("Problem");
+
                     b.Property<string>("Solution");
+
+                    b.Property<string>("Status");
 
                     b.Property<string>("Title");
 

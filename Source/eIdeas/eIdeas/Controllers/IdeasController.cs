@@ -54,8 +54,10 @@ namespace eIdeas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,IdeaNo,Title,Solution,UploadDate")] Idea idea)
+        public async Task<IActionResult> Create([Bind("ID,Name,Title,Problem,Solution,Status,UploadDate")] Idea idea)
         {
+            
+            idea.Status = "Pending";
             idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {
