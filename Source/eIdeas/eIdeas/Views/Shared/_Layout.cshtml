@@ -5,18 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - eIdeas</title>
 
+    <!-- Files to use in the Dev environment -->
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-         
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Bootstrap 4 CSS using CDN, fallback to Project Copy -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap4/bs4.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+        <!-- Bootstrap 4 + Popper + JQuery Bundle using CDN, fallback to Project Copy -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+                integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
+
+        <!-- Site Custom CSS -->
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
+
+    <!-- Files to use in the not Dev environments -->
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+        <!-- Bootstrap 4 CSS using CDN, fallback to Project Copy -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap4/bs4.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+        <!-- Site Custom CSS -->
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
 </head>
@@ -47,8 +60,8 @@
     <partial name="_CookieConsentPartial" />
 
     <div id="BodyContainer" style="margin-right:1%;margin-left:1%;margin-top:1%;">
-        
-        <div class="container body-content"style="width:100%">
+
+        <div class="container body-content" style="width:100%">
             <div class="row">
                 <div class="col-lg-2" style="min-width:18rem;">
                     <div class="col-xs-2"></div>
@@ -66,31 +79,33 @@
                     @RenderBody()
                 </div>
             </div>
-                <hr />
-                <footer class="navbar-fixed-bottom">
-                    <p>&copy; 2018 - eIdeas</p>
-                </footer>
-            </div>
+            <hr />
+            <footer class="navbar-fixed-bottom">
+                <p>&copy; 2018 - eIdeas</p>
+            </footer>
+        </div>
     </div>
-
+    <!-- Files to use in the Dev environment -->
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <!-- Bootstrap 4 + Popper + JQuery Bundle using CDN, fallback to Project Copy -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+                integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"
+                asp-fallback-src="~/lib/bootstrap4/jsbundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <!-- Site JavaScript -->
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
+
+    <!-- Files to use in the Non Dev environment -->
     <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        <!-- Bootstrap 4 + Popper + JQuery Bundle using CDN, fallback to Project Copy -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
+                integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"
+                asp-fallback-src="~/lib/bootstrap4/jsbundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
+        <!-- Site JavaScript -->
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
 
