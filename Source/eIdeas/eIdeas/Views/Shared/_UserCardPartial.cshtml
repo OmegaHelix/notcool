@@ -5,8 +5,8 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="card" style="width:100%;min-width:18rem;">
-    <img class="img-circle card-img-top" style="margin-left: auto;margin-right: auto;width:100%;"src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" alt="Card image cap">
+<div class="card" style="margin:0 auto;" >
+    <img class="rounded-circle card-img-top" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" alt="Card image cap">
     <div class="card-body">
         <button class="card-text btn"style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserName(User)</button>
     </div>

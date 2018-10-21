@@ -5,17 +5,21 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="spacer" style="padding-top:5%;padding-bottom:5%;"></div>
-<div class="row">
-    <a asp-area="" asp-controller="Ideas" asp-action="Index" class="btn btn-lrg btn-primary" style="margin-top:1%;margin-right:5%;width:100%;">Home</a>
-</div>
-<div class="row">
-    <a class="btn btn-lrg btn-primary" style="margin-top:1%;margin-right:5%;width:100%;">Dashboard</a>
-</div>
-<div class="row">
-    <a class="btn btn-lrg btn-primary " style="margin-top:1%;margin-right:5%;width:100%;">Ideas</a>
-</div>
-<div class="row">
-    <a class="btn btn-lrg btn-primary " style="margin-top:1%;margin-right:5%;width:100%;">Success Stories</a>
-</div>
+
+    <ul class="nav mx-auto flex-column">
+        <li class="nav-item" style="width:100%;">
+            <a class="btn btn-lrg btn-primary" style="width:100%;" asp-area="" asp-controller="Ideas" asp-action="Index">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-lrg btn-primary " asp-area="" asp-controller="Home" asp-action="About">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-lrg btn-primary " asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
+        </li>
+        <li class="nav-item">
+            <a class="btn btn-lrg btn-primary " asp-area="" asp-controller="Ideas" asp-action="Index">Ideas</a>
+        </li>
+    </ul>
+
+
 }
