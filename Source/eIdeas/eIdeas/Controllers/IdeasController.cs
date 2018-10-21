@@ -24,9 +24,42 @@ namespace eIdeas.Controllers
         }
 
         // GET: Ideas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchFilter, string searchString)
         {
-            return View(await _context.Idea.ToListAsync());
+            var ideas = from i in _context.Idea select i;
+
+            if(!String.IsNullOrEmpty(searchString))
+            {
+                ideas = ideas.Where(i => i.Title.Contains(searchString));
+            }
+            if (!String.IsNullOrEmpty(searchFilter))
+            {
+                if(searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
+                    searchFilter.Equals("Check") || searchFilter.Equals("Act") || searchFilter.Equals("Park") ||
+                    searchFilter.Equals("Abandon"))
+                {
+                    ideas = ideas.Where(i => i.Status.Contains(searchFilter));
+                }
+                if (searchFilter.Equals("ID"))
+                {
+                    ideas = ideas.Where(i => i.ID.ToString().Contains(searchFilter));
+                }
+                if (searchFilter.Equals("Subscribed"))
+                {
+                    //TODO Filter by subscriptions
+                }
+                if (searchFilter.Equals("TeamMember"))
+                {
+                    //TODO Filter by Team member
+                }
+                if (searchFilter.Equals("TeamName"))
+                {
+                    //TODO Filter by Team Name
+                }
+
+            }
+            return View(await ideas.ToListAsync());
+            //return View(await _context.Idea.ToListAsync());
         }
 
         // GET: Ideas/Details/5

@@ -9,6 +9,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-controller="Ideas" asp-action="Index" method="get">
+    <p>
+        <select name="SearchFilter">
+            <option value="" selected disabled hidden>Filter</option>
+            <option value="ID">Idea Number</option>
+            <option value="Pending">Pending Ideas</option>
+            <option value="Plan">Planning Ideas</option>
+            <option value="Do">Do Ideas</option>
+            <option value="Check">Check Ideas</option>
+            <option value="Act">Act Ideas</option>
+            <option value="Park">Parked Ideas</option>
+            <option value="Abandon">Abandoned Ideas</option>
+            <option value="Subscribed">Subscribed</option>
+            <option value="TeamMember">By Team Member</option>
+            <option value="TeamName">By Team Name</option>
+        </select>
+        <input type="text" name="SearchString" >
+        <input type="submit" value="Search" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>

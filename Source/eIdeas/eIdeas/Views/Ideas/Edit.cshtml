@@ -29,13 +29,16 @@
                 <textarea asp-for="Solution" class="form-control"></textarea>
                 <span asp-validation-for="Solution" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <select asp-for="Status">
+            <div class="dropdown">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" class="form-control">
                     <option value="Pending">Pending</option>
                     <option value="Plan">Plan</option>
                     <option value="Do">Do</option>
                     <option value="Check">Check</option>
                     <option value="Act">Act</option>
+                    <option value="Park">Park</option>
+                    <option value="Abandon">Abandon</option>
                 </select>
             </div>
             <div class="form-group">
