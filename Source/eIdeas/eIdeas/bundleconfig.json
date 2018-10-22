@@ -9,9 +9,16 @@
   {
     "outputFileName": "wwwroot/lib/bootstrap4/jsbundle.min.js",
     "inputFiles": [
-      "node_modules/jquery/dist/jquery.min.js",
       "node_modules/popper.js/dist/umd/popper.min.js",
       "node_modules/bootstrap/dist/js/bootstrap.min.js"
+    ],
+    "minify": { "enabled": false }
+  },
+
+  {
+    "outputFileName": "wwwroot/lib/bootstrap4/jquery.min.js",
+    "inputFiles": [
+      "node_modules/jquery/dist/jquery.min.js"
     ],
     "minify": { "enabled": false }
   }
