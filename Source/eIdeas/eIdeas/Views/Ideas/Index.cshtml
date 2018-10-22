@@ -4,29 +4,35 @@
     ViewData["Title"] = "Ideas";
 }
 
-<h2>Ideas</h2>
+<h1 class="display-2">Ideas</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
 </p>
 <form asp-controller="Ideas" asp-action="Index" method="get">
     <p>
-        <select name="SearchFilter">
-            <option value="" selected disabled hidden>Filter</option>
-            <option value="ID">Idea Number</option>
-            <option value="Pending">Pending Ideas</option>
-            <option value="Plan">Planning Ideas</option>
-            <option value="Do">Do Ideas</option>
-            <option value="Check">Check Ideas</option>
-            <option value="Act">Act Ideas</option>
-            <option value="Park">Parked Ideas</option>
-            <option value="Abandon">Abandoned Ideas</option>
-            <option value="Subscribed">Subscribed</option>
-            <option value="TeamMember">By Team Member</option>
-            <option value="TeamName">By Team Name</option>
-        </select>
-        <input type="text" name="SearchString" >
-        <input type="submit" value="Search" />
+        <div class="input-group mt-3 mb-3">
+            <div class="input-group-prepend">
+                <select name="SearchFilter" class="btn btn-primary dropdown-toggle">
+                    <option value="" selected disabled hidden>Filter</option>
+                    <option value="ID">Idea Number</option>
+                    <option value="Pending">Pending Ideas</option>
+                    <option value="Plan">Planning Ideas</option>
+                    <option value="Do">Do Ideas</option>
+                    <option value="Check">Check Ideas</option>
+                    <option value="Act">Act Ideas</option>
+                    <option value="Park">Parked Ideas</option>
+                    <option value="Abandon">Abandoned Ideas</option>
+                    <option value="Subscribed">Subscribed</option>
+                    <option value="TeamMember">By Team Member</option>
+                    <option value="TeamName">By Team Name</option>
+                </select>
+            </div>
+            <input type="text" name="SearchString" class="form-control" placeholder="Search">
+            <div class="input-group-append">
+                <input type="submit" class="btn btn-primary" value="Search" />
+            </div>
+        </div>
     </p>
 </form>
 <table class="table">
