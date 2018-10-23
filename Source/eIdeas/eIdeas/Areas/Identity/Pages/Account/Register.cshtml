@@ -6,7 +6,7 @@
 <h2>@ViewData["Title"]</h2>
     <div class="row">
         <div class="col-md-4">
-            <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <form asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
                 <h4>Create a new account.</h4>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label asp-for="Input.Image"></label><br />
                     <span> Select image to upload: </span>
-                    <input asp-for="Input.Image" type="file" name="file" accept=".png, .pdf, .jpg .jpeg .gif" />
+                    <input asp-for="Input.Image" type="file" name="file" accept=".png, .pdf, .jpg, .jpeg, .gif" />
                 </div>
                 <div class="form-group">
                     <label asp-for="Input.Password"></label>

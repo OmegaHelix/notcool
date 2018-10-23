@@ -88,8 +88,31 @@ namespace eIdeas.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+                var image = HttpContext.Request.Form.Files;
+                Input.Image = image[0];
 
-                /////////////////////////////////////////////////////
+                var fileName = string.Empty;
+                var newFileName = string.Empty;
+                //Getting FileName
+                fileName = ContentDispositionHeaderValue.Parse(Input.Image.ContentDisposition).FileName.Trim('"');
+
+                //Assigning Unique Filename (Guid)
+                var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                //Getting file Extension
+                var FileExtension = Path.GetExtension(fileName);
+
+                // concating  FileName + FileExtension
+                newFileName = myUniqueFileName + FileExtension;
+
+                // Combines two strings into a path.
+                fileName = Path.Combine(_environment.WebRootPath, "images/") + newFileName;
+
+                using (var fileStream = System.IO.File.Create(fileName))
+                {
+                    await Input.Image.CopyToAsync(fileStream);
+                }
+
                 var user = new IdentityUser {UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
