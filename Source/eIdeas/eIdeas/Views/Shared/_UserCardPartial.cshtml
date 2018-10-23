@@ -8,7 +8,7 @@
 {
     <div class="card" style="margin:0 auto;">
         <img class="rounded-circle card-img-top" style="widthL100%;" src="@UserManager.GetUserAsync(User).Result.PictureURL"/><div class="card-body">
-            <button class="card-text btn" style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserName(User)</button>
+                                                                                                                                  <button class="card-text btn" style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</button>
         </div>
     </div>
 }

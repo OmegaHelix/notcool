@@ -24,7 +24,7 @@ namespace eIdeas.Areas.Identity.Pages.Account
         {
             if (userId == null || code == null)
             {
-                return RedirectToPage("/Index");
+                return RedirectToPage("~/Ideas/Index");
             }
 
             var user = await _userManager.FindByIdAsync(userId);
