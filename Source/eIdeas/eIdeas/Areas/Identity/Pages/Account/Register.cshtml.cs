@@ -57,10 +57,16 @@ namespace eIdeas.Areas.Identity.Pages.Account
             [DataType(DataType.Text)]
             [Display(Name = "Role")]
             public string Role { get; set; }
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Url]
+            [Display(Name = "PictureURL")]
+            public string PictureURL { get; set; }
+            
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -90,7 +96,8 @@ namespace eIdeas.Areas.Identity.Pages.Account
                     Firstname = Input.Firstname,
                     Lastname = Input.Lastname,
                     Team = Input.Team,
-                    Role = Input.Role
+                    Role = Input.Role,
+                    PictureURL = Input.PictureURL
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
