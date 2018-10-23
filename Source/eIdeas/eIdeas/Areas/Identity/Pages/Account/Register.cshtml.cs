@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Web;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System.Net.Http.Headers;
+
 namespace eIdeas.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
@@ -87,36 +88,8 @@ namespace eIdeas.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var image = HttpContext.Request.Form.Files;
-                var file = Path.Combine(_environment.WebRootPath, "demoimages", Input.Image.FileName);
-                using (var fileStream = new FileStream(file, FileMode.Create))
-                {
-                    await Input.Image.CopyToAsync(fileStream);
-                }
 
-                //var fileName = string.Empty;
-                //var newFileName = string.Empty;
-                ////Getting FileName
-                //fileName = ContentDispositionHeaderValue.Parse(Upload.ContentDisposition).FileName.Trim('"');
-
-                ////Assigning Unique Filename (Guid)
-                //var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                ////Getting file Extension
-                //var FileExtension = Path.GetExtension(fileName);
-
-                //// concating  FileName + FileExtension
-                //newFileName = myUniqueFileName + FileExtension;
-
-                //// Combines two strings into a path.
-                //fileName = Path.Combine(_environment.WebRootPath, "demoImages") + $@"\{newFileName}";
-
-                //using (var fileStream = System.IO.File.Create(fileName))
-                //{
-                //    Upload.CopyTo(fileStream);
-                //    fileStream.Flush();
-                //}
-
+                /////////////////////////////////////////////////////
                 var user = new IdentityUser {UserName = Input.Username, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
