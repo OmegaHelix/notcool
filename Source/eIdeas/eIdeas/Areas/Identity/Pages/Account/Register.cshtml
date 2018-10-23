@@ -30,8 +30,7 @@
             <div class="form-group">
                 <label asp-for="Input.Image"></label><br />
                 <span> Select image to upload: </span>
-                <input type="file" name="imageToUpload" />
-                <span asp-validation-for="Input.Image" class="text-danger"></span>
+                <input asp-for="Input.Image" type="file" />
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
@@ -43,7 +42,7 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Register</button>
+            <button type="submit" class="btn btn-outline-dark">Register</button>
         </form>
     </div>
 </div>
