@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eIdeas.Data
 {
-    public class ApplicationDbContext : AppUserDbContext
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

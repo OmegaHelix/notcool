@@ -1,7 +1,8 @@
 @using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
 
-@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
+@inject SignInManager<eIdeasUser> SignInManager
+@inject UserManager<eIdeasUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {

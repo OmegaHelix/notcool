@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using eIdeas.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +14,13 @@ namespace eIdeas.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<eIdeasUser> _userManager;
+        private readonly SignInManager<eIdeasUser> _signInManager;
         private readonly IEmailSender _emailSender;
 
         public IndexModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<eIdeasUser> userManager,
+            SignInManager<eIdeasUser> signInManager,
             IEmailSender emailSender)
         {
             _userManager = userManager;
@@ -40,8 +41,27 @@ namespace eIdeas.Areas.Identity.Pages.Account.Manage
         public class InputModel
         {
             [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string Firstname { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string Lastname { get; set; }
+
+
+            [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Team")]
+            public string Team { get; set; }
+            
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
 
             [Phone]
             [Display(Name = "Phone number")]
@@ -64,7 +84,11 @@ namespace eIdeas.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
+                Firstname = user.Firstname,
+                Lastname = user.Lastname,
                 Email = email,
+                Team = user.Team,
+                Role = user.Role,
                 PhoneNumber = phoneNumber
             };
 
@@ -84,6 +108,23 @@ namespace eIdeas.Areas.Identity.Pages.Account.Manage
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            if (Input.Firstname != user.Firstname)
+            {
+                user.Firstname = Input.Firstname;
+            }
+            if (Input.Lastname != user.Lastname)
+            {
+                user.Lastname = Input.Lastname;
+            }
+            if (Input.Team != user.Team)
+            {
+                user.Team = Input.Team;
+            }
+            if (Input.Role != user.Role)
+            {
+                user.Role = Input.Role;
             }
 
             var email = await _userManager.GetEmailAsync(user);
@@ -107,7 +148,7 @@ namespace eIdeas.Areas.Identity.Pages.Account.Manage
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
             }
-
+            await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

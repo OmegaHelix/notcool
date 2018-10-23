@@ -1,4 +1,4 @@
-@page
+﻿@page
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
@@ -12,26 +12,31 @@
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
+
             <div class="form-group">
-                <label asp-for="Input.Username"></label>
-                <input asp-for="Input.Username" class="form-control" />
-                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                <label asp-for="Input.Firstname"></label>
+                <input asp-for="Input.Firstname" class="form-control" />
+                <span asp-validation-for="Input.Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Lastname"></label>
+                <input asp-for="Input.Lastname" class="form-control" />
+                <span asp-validation-for="Input.Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Team"></label>
+                <input asp-for="Input.Team" class="form-control" />
+                <span asp-validation-for="Input.Team" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Role"></label>
+                <input asp-for="Input.Role" class="form-control" />
+                <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.PhoneNumber"></label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.Image"></label><br />
-                <span> Select image to upload: </span>
-                <input type="file" name="imageToUpload" />
-                <span asp-validation-for="Input.Image" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>

@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using eIdeas.Models;
 using Microsoft.AspNetCore.Authorization;
+using eIdeas.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +16,14 @@ namespace eIdeas.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<AppUser> _signInManager;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<eIdeasUser> _signInManager;
+        private readonly UserManager<eIdeasUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
+            UserManager<eIdeasUser> userManager,
+            SignInManager<eIdeasUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
@@ -41,26 +41,26 @@ namespace eIdeas.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "Username")]
-            public string Username { get; set; }
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string Firstname { get; set; }
 
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Last name")]
+            public string Lastname { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Team")]
+            public string Team { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Role")]
+            public string Role { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
-
-
-
-            [Required]
-            [Phone]
-            [DataType(DataType.PhoneNumber)]
-            [Display(Name = "PhoneNumber")]
-            public string PhoneNumber { get; set; }
-
-            [Url]
-            [DataType(DataType.ImageUrl)]
-            [Display(Name = "Image")]
-            public string Image { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -84,7 +84,14 @@ namespace eIdeas.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Username, Email = Input.Email };
+                var user = new eIdeasUser {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    Firstname = Input.Firstname,
+                    Lastname = Input.Lastname,
+                    Team = Input.Team,
+                    Role = Input.Role
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
