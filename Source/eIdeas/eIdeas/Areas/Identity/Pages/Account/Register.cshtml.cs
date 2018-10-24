@@ -140,12 +140,6 @@ namespace eIdeas.Areas.Identity.Pages.Account
                     }
                 }
 
-
-
-
-
-
-
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

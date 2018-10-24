@@ -6,9 +6,10 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="card" style="margin:0 auto;">
-        <img class="rounded-circle card-img-top" style="widthL100%;" src="C:\Git\notcool\Source\eIdeas\eIdeas\wwwroot\images\029d4f2a-ab24-4777-8386-4606de8461ca.gif"/><div class="card-body">
-                                                                                                                                  <button class="card-text btn" style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</button>
-        </div>
+<div class="card" style="margin:0 auto;">
+    <img class="rounded-circle card-img-top" style="widthL100%;" src="@UserManager.GetUserAsync(User)" />
+    <div class="card-body">
+        <button class="card-text btn" style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</button>
     </div>
+</div>
 }
