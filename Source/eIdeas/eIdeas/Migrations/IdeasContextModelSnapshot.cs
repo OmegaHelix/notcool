@@ -33,9 +33,13 @@ namespace eIdeas.Migrations
 
                     b.Property<string>("Status");
 
+                    b.Property<string>("Team");
+
                     b.Property<string>("Title");
 
                     b.Property<DateTime>("UploadDate");
+
+                    b.Property<string>("UserID");
 
                     b.HasKey("ID");
 

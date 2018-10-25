@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using eIdeas.Data;
 using eIdeas.Models;
-
+using eIdeas.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
@@ -17,10 +17,14 @@ namespace eIdeas.Controllers
     public class IdeasController : Controller
     {
         private readonly IdeasContext _context;
+        private readonly UserManager<eIdeasUser> _userManager;
+        private readonly SignInManager<eIdeasUser> _signInManager;
 
-        public IdeasController(IdeasContext context)
+        public IdeasController(IdeasContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
         {
             _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         // GET: Ideas
@@ -28,10 +32,7 @@ namespace eIdeas.Controllers
         {
             var ideas = from i in _context.Idea select i;
 
-            if(!String.IsNullOrEmpty(searchString))
-            {
-                ideas = ideas.Where(i => i.Title.Contains(searchString));
-            }
+  
             if (!String.IsNullOrEmpty(searchFilter))
             {
                 if(searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
@@ -42,7 +43,7 @@ namespace eIdeas.Controllers
                 }
                 if (searchFilter.Equals("ID"))
                 {
-                    ideas = ideas.Where(i => i.ID.ToString().Contains(searchFilter));
+                    ideas = ideas.Where(i => i.ID.ToString().Contains(searchString));
                 }
                 if (searchFilter.Equals("Subscribed"))
                 {
@@ -58,6 +59,12 @@ namespace eIdeas.Controllers
                 }
 
             }
+
+            if (!String.IsNullOrEmpty(searchString) && searchFilter != "ID")
+            {
+                ideas = ideas.Where(i => i.Title.Contains(searchString));
+            }
+
             return View(await ideas.ToListAsync());
             //return View(await _context.Idea.ToListAsync());
         }
@@ -91,17 +98,20 @@ namespace eIdeas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Title,Problem,Solution,Status,UploadDate")] Idea idea)
+        public async Task<IActionResult> Create([Bind("ID,Name,UserID,Title,Problem,Solution,Status,Team,UploadDate")] Idea idea)
         {
-            if (User.Identity.Name != null)
+            var user = await _userManager.GetUserAsync(User);
+            if (user.Firstname != null)
             {
-                idea.Name = User.Identity.Name;
+                idea.Name = user.Firstname + " " + user.Lastname;
             }
             else
             {
                 idea.Name = "Anon";
             }
+            idea.UserID = user.Id;
             idea.Status = "Pending";
+            idea.Team = user.Team;
             idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {
@@ -133,15 +143,16 @@ namespace eIdeas.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Title,Problem,Solution,Status,UploadDate")] Idea idea)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,UserID,Title,Problem,Solution,Status,Team,UploadDate")] Idea idea)
         {
+            var user = await _userManager.GetUserAsync(User);
             if (id != idea.ID)
             {
                 return NotFound();
             }
-            if (User.Identity.Name != null)
+            if (user.Firstname != null)
             {
-                idea.Name = User.Identity.Name;
+                idea.Name = user.Firstname + " " + user.Lastname;
             }
             else
             {

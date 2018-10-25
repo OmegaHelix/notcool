@@ -1,5 +1,6 @@
-using System;
-using eIdeas.Data;
+﻿using System;
+using eIdeas.Areas.Identity.Data;
+using eIdeas.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -15,6 +16,13 @@ namespace eIdeas.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
+                services.AddDbContext<eIdeasUsersContext>(options =>
+                    options.UseSqlServer(
+                        context.Configuration.GetConnectionString("eIdeasUsersContextConnection")));
+
+               
+               services.AddDefaultIdentity<eIdeasUser>()
+                    .AddEntityFrameworkStores<eIdeasUsersContext>();
             });
         }
     }
