@@ -6,20 +6,20 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="card" style="margin:0 auto; width: 18rem;">
-        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" />
+        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem;flex-shrink: 0;" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" />
         <div class="card-body" style="margin:0 auto; width: 18rem;">
-            <h5 class="card-title h4">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</h5>
+            <h4 class="mx-auto text-center card-title h4">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</h4>
             <ul class="nav mx-auto flex-column">
-                <li class="nav-item" style="width:100%; padding-bottom:0.2rem">
+                <li class="nav-item" style="width:100%; padding-bottom:0.2rem;flex: 1 1 auto;">
                     <a class="btn btn-primary" style="width:100%;" asp-area="" asp-controller="Ideas" asp-action="Index">Home</a>
                 </li>
-                <li class="nav-item" style="width:100%; padding-bottom:0.2rem">
+                <li class="nav-item" style="width:100%; padding-bottom:0.2rem;flex: 1 1 auto;">
                     <a class="btn btn-primary " style="width:100%;" asp-area="" asp-controller="Home" asp-action="About">About</a>
                 </li>
-                <li class="nav-item" style="width:100%; padding-bottom:0.2rem">
+                <li class="nav-item" style="width:100%; padding-bottom:0.2rem;flex: 1 1 auto;">
                     <a class="btn btn-primary " style="width:100%;" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                 </li>
-                <li class="nav-item" style="width:100%; padding-bottom:0.2rem">
+                <li class="nav-item" style="width:100%; padding-bottom:0.2rem;flex: 1 1 auto;">
                     <a class="btn btn-primary " style="width:100%;" asp-area="" asp-controller="Ideas" asp-action="Index">Ideas</a>
                 </li>
             </ul>
