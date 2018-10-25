@@ -1,14 +1,15 @@
 @using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
 
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<eIdeasUser> SignInManager
+@inject UserManager<eIdeasUser> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
-<div class="card" style="margin:0 auto;" >
-    <img class="rounded-circle card-img-top" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" alt="Card image cap">
+<div class="card" style="margin:0 auto;">
+    <img class="rounded-circle card-img-top" style="widthL100%;" src="@UserManager.GetUserAsync(User)" />
     <div class="card-body">
-        <button class="card-text btn"style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserName(User)</button>
+        <button class="card-text btn" style="margin-top:5%;width:100%;white-space: normal;">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</button>
     </div>
 </div>
 }
