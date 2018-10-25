@@ -20,6 +20,7 @@ namespace eIdeas.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("eIdeasUsersContextConnection")));
 
+               
                services.AddDefaultIdentity<eIdeasUser>()
                     .AddEntityFrameworkStores<eIdeasUsersContext>();
             });

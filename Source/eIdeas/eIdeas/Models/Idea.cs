@@ -11,10 +11,12 @@ namespace eIdeas.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+        public string UserID { get; set; }
         public string Title { get; set; }
         public string Problem { get; set; }
         public string Solution { get; set; }
         public string Status { get; set; }
+        public string Team { get; set; }
 
         [Display(Name = "Upload Date")]
         [DataType(DataType.Date)]
