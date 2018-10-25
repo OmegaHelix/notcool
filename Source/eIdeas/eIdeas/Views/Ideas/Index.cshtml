@@ -6,17 +6,13 @@
 @{
     ViewData["Title"] = "Ideas";
 }
-
-<h1 class="display-2">Ideas</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
-</p>
+<h3 class="display-4">Ideas</h3>
+<p><a asp-action="Create" class="btn btn-primary btn-sm">Create New</a></p>
 <form asp-controller="Ideas" asp-action="Index" method="get">
     <p>
         <div class="input-group mt-3 mb-3">
             <div class="input-group-prepend">
-                <select name="SearchFilter" class="btn btn-primary dropdown-toggle">
+                <select name="SearchFilter" class="btn btn-primary dropdown-toggle btn-sm">
                     <option value="" selected disabled hidden>Filter</option>
                     <option value="ID">Idea Number</option>
                     <option value="Pending">Pending Ideas</option>
@@ -33,232 +29,69 @@
             </div>
             <input type="text" name="SearchString" class="form-control" placeholder="Search">
             <div class="input-group-append">
-                <input type="submit" class="btn btn-primary" value="Search" />
+                <input type="submit" class="btn btn-primary btn-sm" value="Search" />
             </div>
         </div>
     </p>
 </form>
-<table class="table">
-    <thead>
-        <!--
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Problem)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Solution)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UploadDate)
-            </th>
-            <th></th>
-        </tr>
-        -->
-        <h2>All Ideas</h2>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <!--
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Problem)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Solution)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UploadDate)
-            </td>
-            <td>
-                @if (item.Name == User.Identity.Name)
-                {<a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
-                    <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                }
-                else
-                {
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                }
-            </td>
-        </tr>
-        -->
-        <p></p>
-        <div class="card">
-            <div class="card-body">
-                <div class="container">
-                    <p>Idea Number: @Html.DisplayFor(modelItem => item.ID)</p>
-                    <p><b>@Html.DisplayFor(modelItem => item.Name)</b></p>
-                    <p>@Html.DisplayFor(modelItem => item.Title)</p>
-                    <p>Status: @Html.DisplayFor(modelItem => item.Status)</p>
-                    <p>
-                        @if (item.Status == "Pending")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                    <span class="sr-only">20% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Plan")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                    <span class="sr-only">40% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Do")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                    <span class="sr-only">60% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Check")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                                    <span class="sr-only">80% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Act")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    <span class="sr-only">100% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Park")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    <span class="sr-only">100% Complete</span>
-                                </div>
-                            </div>
-                        }
-                        else if (item.Status == "Abandon")
-                        {
-                            <div class="progress">
-                                <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                    <span class="sr-only">100% Complete</span>
-                                </div>
-                            </div>
-                        }
-                    </p>
-                    <textarea rows="4" cols="50" placeholder="enter a comment"></textarea>
-                    <p><button type="button" onclick="alert('your comment has been submited')">Submit Comment</button></p>
-                    <p>
-                        @if (item.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
-                        {
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
-                            <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                        }
-                        else
-                        {
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                        }
-                    </p>
-                </div>
-            </div>
-
-            <!--
-            this first row provides padding for the submissions
-            <tr><td></td></tr>
-            <tr><td>@Html.DisplayFor(modelItem => item.Name)</td></tr>
-            <tr><td>@Html.DisplayFor(modelItem => item.Title)</td><td></td><td>@Html.DisplayFor(modelItem => item.ID)</td></tr>
-            <tr><td><p>Status:</p></td><td>@Html.DisplayFor(modelItem => item.Status)</td></tr>
-            <tr>
-                <td>
+<p class="h4">All Ideas</p>
+@foreach (var item in Model)
+{
+    <p></p>
+    <div class="card">
+        <div class="card-body">
+            <div class="container">
+                <p>Idea Number: @Html.DisplayFor(modelItem => item.ID)</p>
+                <p><b>@Html.DisplayFor(modelItem => item.Name)</b></p>
+                <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                <p>Status: @Html.DisplayFor(modelItem => item.Status)</p>
+                <p>
                     @if (item.Status == "Pending")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">
-                                <span class="sr-only">20% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width:20%">20%</div>
                         </div>
                     }
                     else if (item.Status == "Plan")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-                                <span class="sr-only">40% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">40%</div>
                         </div>
                     }
                     else if (item.Status == "Do")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                <span class="sr-only">60% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%">60%</div>
                         </div>
                     }
                     else if (item.Status == "Check")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">
-                                <span class="sr-only">80% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%">80%</div>
                         </div>
                     }
                     else if (item.Status == "Act")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                <span class="sr-only">100% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">100%</div>
                         </div>
                     }
                     else if (item.Status == "Park")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                <span class="sr-only">100% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">100%</div>
                         </div>
                     }
                     else if (item.Status == "Abandon")
                     {
                         <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">
-                                <span class="sr-only">100% Complete</span>
-                            </div>
+                            <div class="progress-bar bg-secondary" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width:100%">100%</div>
                         </div>
                     }
-                </td>
-            </tr>
-            <tr><td><textarea rows="4" cols="50">enter a comment</textarea></td></tr>
-            <tr><td><button type="button" onclick="alert('your comment has been submited')">Submit Comment</button></td></tr>
-            <tr>
-                <td>
+                </p>
+                <textarea rows="4" cols="50" placeholder="enter a comment"></textarea>
+                <p><button type="button" onclick="alert('your comment has been submited')">Submit Comment</button></p>
+                <p>
                     @if (item.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
@@ -269,10 +102,8 @@
                     {
                         <a asp-action="Details" asp-route-id="@item.ID">Details</a>
                     }
-                </td>
-            </tr>-->
+                </p>
+            </div>
         </div>
-        
+    </div>
 }
-    </tbody>
-</table>
