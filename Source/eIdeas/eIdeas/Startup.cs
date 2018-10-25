@@ -13,6 +13,8 @@ using eIdeas.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using eIdeas.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using eIdeas.Areas.Identity.Services;
 
 namespace eIdeas
 {
@@ -40,6 +42,20 @@ namespace eIdeas
                     Configuration.GetConnectionString("DefaultConnection")));
             //services.AddDefaultIdentity<IdentityUser>()
             //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+            services.AddTransient<IEmailSender, eIdeasEmailSender>
+                (
+                    sender => new eIdeasEmailSender
+                    (
+                        Configuration["eIdeasEmailSender:Host"],
+                        Configuration.GetValue<int>("eIdeasEmailSender:PortNum"),
+                        Configuration.GetValue<bool>("eIdeasEmailSender:EnableSSL"),
+                        Configuration["eIdeasEmailSender:EmailAddress"],
+                        Configuration["eIdeasEmailSender:Password"]
+                    )
+                );
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
