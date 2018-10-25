@@ -6,7 +6,7 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <div class="card" style="margin:0 auto; width: 18rem;">
-        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem;flex-shrink: 0;" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" />
+        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem;flex-shrink: 0;border: 1px solid transparent;" src="https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063" />
         <div class="card-body" style="margin:0 auto; width: 18rem;">
             <h4 class="mx-auto text-center card-title h4">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</h4>
             <ul class="nav mx-auto flex-column">
