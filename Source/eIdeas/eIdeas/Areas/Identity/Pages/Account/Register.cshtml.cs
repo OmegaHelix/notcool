@@ -45,6 +45,7 @@ namespace eIdeas.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
         public string ReturnUrl { get; set; }
+        public object HttpFileCollection { get; private set; }
 
         public class InputModel
         {
@@ -113,10 +114,12 @@ namespace eIdeas.Areas.Identity.Pages.Account
 
 
                 var image = HttpContext.Request.Form.Files;
-                Input.Image = image[0];
 
-                if (Input.Image != null)
+
+
+                if (image.Count > 0)
                 {
+                    Input.Image = image[0];
                     var fileName = string.Empty;
                     var newFileName = string.Empty;
                     //Getting FileName
