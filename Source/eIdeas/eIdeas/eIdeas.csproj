@@ -26,9 +26,4 @@
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\eIdeasUsers\20181022234509_UserInitial.cs" />
-    <Compile Remove="Migrations\eIdeasUsers\20181022234509_UserInitial.Designer.cs" />
-  </ItemGroup>
 </Project>
