@@ -13,17 +13,21 @@
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.Firstname!</a>
         </li>
         <li class="nav-item">
-            <button class="btn btn-outline-secondary" type="submit">Logout</button>
+            <button class="btn btn-outline-secondary" type="submit">
+                <img src="~/images/svg/account-logout.svg" alt="ASP.NET" /> Logout
+            </button>
         </li>
     </ul>
 </form>
-        
-        }
-        else
-        {
-        <ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link"> Register</a></li>
-            <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Login" class="nav-link"> Login</a></li>
-        </ul>
-        }
+
+}
+else
+{
+<ul class="nav navbar-nav navbar-right">
+    <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Register" class="nav-link"> 
+     <span style="margin-bottom:5px"><img src="~/images/svg/baseline-person_add-24px.svg" alt="ASP.NET" style="margin-bottom:5px"/></span> Register</a></li>
+    <li class="nav-item"><a asp-area="Identity" asp-page="/Account/Login" class="nav-link">
+    <img src="~/images/svg/account-login.svg" alt="ASP.NET" /> Login</a></li>
+</ul>
+}
 
