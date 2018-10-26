@@ -34,70 +34,90 @@
         </div>
     </p>
 </form>
-@foreach (var item in Model)
+@foreach (var item in Model.Reverse())
 {
     <p></p>
     <div class="card" style="border-color: darkgrey; background-color: aliceblue">
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-8"><b>@Html.DisplayFor(modelItem => item.Name)</b></div>
-                    <div class="col-sm-2">Idea Number: @Html.DisplayFor(modelItem => item.ID)</div>
+                    <div class="col-sm-11"><b>@Html.DisplayFor(modelItem => item.Name)</b></div>
+                    <div class="float-right col-sm-1 text-muted">#: @Html.DisplayFor(modelItem => item.ID)</div>
                     <p></p>
                 </div>
-                 <div class="row">
-                    <div class="col-sm-2"><span class="text-muted">Title: </span>@Html.DisplayFor(modelItem => item.Title)</div>
-                    <div class="col-sm-10"><span class="text-muted">Solution: </span>@Html.DisplayFor(modelItem => item.Solution)</div>
-                </div>
+                    <div><span class="text-muted">Title: </span>@Html.DisplayFor(modelItem => item.Title)</div>
+                    <div><span class="text-muted">Solution: </span>@Html.DisplayFor(modelItem => item.Solution)</div>
                 <div class="row">
-                    <div class="col-sm-2"><span class="text-muted">Status: </span></div>
-                    <div class="col-sm-8">
-                        <div class="progress" style="height: 20px">
+                    <div class="col-sm-1"><span class="text-muted">Status: </span></div>
+                    <div class="col-sm-5">
+                        <div class="progress" style="height: 15px">
                             @if (item.Status == "Pending")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: orangered; width:20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 50px; margin-left: auto; margin-right: auto">Pending</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: orangered; width:20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Pending</div>
                             }
                             else if (item.Status == "Plan")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white ; background-color: orange; width:40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 35px; margin-left: auto; margin-right: auto">Plan</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white ; background-color: orange; width:40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Plan</div>
                             }
                             else if (item.Status == "Do")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: gold; width:60%" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 30px; margin-left: auto; margin-right: auto">Do</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: gold; width:60%" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Do</div>
                             }
                             else if (item.Status == "Check")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: mediumseagreen; width:80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 40px; margin-left: auto; margin-right: auto">Check</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: mediumseagreen; width:80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Check</div>
                             }
                             else if (item.Status == "Act")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: dodgerblue; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 35px; margin-left: auto; margin-right: auto">Act</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: dodgerblue; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Act</div>
                             }
                             else if (item.Status == "Park")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: lightgray; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 35px; margin-left: auto; margin-right: auto">Park</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: lightgray; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Park</div>
                             }
                             else if (item.Status == "Abandon")
                             {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: darkgrey; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"><span class="badge badge-pill badge-light" style="width: 50px; margin-left: auto; margin-right: auto">Abandon</span></div>
+                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: darkgrey; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Abandon</div>
                             }
                         </div>
                     </div>
+                    <div class="col-sm-5"></div>
+                    <div class="col-sm-1">
+                        <p>
+                            @if (item.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
+                            {
+                                <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
+                                <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
+                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                            }
+                            else
+                            {
+                                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
+                            }
+                        </p>
+                    </div>
                 </div>
-                <textarea rows="4" cols="50" class="form-control" placeholder="enter a comment"></textarea>
-                <p><button type="button" class="btn btn-primary btn-sm" onclick="alert('your comment has been submited')">Submit Comment</button></p>
-                <p>
-                    @if (item.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
-                        <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
-                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                    }
-                    else
-                    {
-                        <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                    }
-                </p>
+                <div>
+                    <img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment"/>
+                    <script>
+                        $("[data-toggle=popover]").each(function(i, obj) {
+                            $(this).popover({
+                                  html: true,
+                                  content: function() {
+                                  var id = $(this).attr('id')
+                                  return $('#popover-content-' + id).html();
+                              }
+                            });
+                        });
+                    </script>
+                    <div id="popover-content-comment" hidden>
+                        <form asp-controller="Ideas" asp-action="Index" method="get">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                            <button type="submit" class="badge badge-pill badge-primary">submit</button>
+                        </form>
+                    </div>
+                    <img src="~/images/svg/thumb-up.svg" alt="ASP.NET" />
+                </div>
             </div>
         </div>
     </div>
