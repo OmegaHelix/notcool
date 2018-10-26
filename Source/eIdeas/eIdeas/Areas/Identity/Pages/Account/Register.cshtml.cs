@@ -109,7 +109,7 @@ namespace eIdeas.Areas.Identity.Pages.Account
                     Lastname = Input.Lastname,
                     Team = Input.Team,
                     Role = Input.Role,
-                    PictureURL = "~/images/029d4f2a-ab24-4777-8386-4606de8461ca.gif"//"https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063"
+                    PictureURL = "https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063"
                 };
 
 
