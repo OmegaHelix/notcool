@@ -1,0 +1,9 @@
+﻿@model IEnumerable<eIdeas.Models.Comment>
+
+
+
+@foreach (var comment in Model)
+{
+    <div><span class="text-muted">User: </span>@comment.UserName</div>
+    <div><span class="text-muted">Comment: </span>@comment.UserComment</div>
+}

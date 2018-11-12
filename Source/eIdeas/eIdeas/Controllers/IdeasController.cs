@@ -66,13 +66,28 @@ namespace eIdeas.Controllers
             {
                 ideas = ideas.Where(i => i.Title.Contains(searchString));
             }
-            List<Comment> commentsList = await comments.ToListAsync();
-            dynamic myModel = new ExpandoObject();
-            myModel.Ideas = await ideas.ToListAsync();
-            myModel.Comments = commentsList;
-            myModel.Likes = await likes.ToListAsync();
-            return View(myModel);
-            //return View(await _context.Idea.ToListAsync());
+
+            List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
+            foreach(var item in ideas)
+            {
+                var ideaComments = comments.Where(i => i.IdeaID.Equals(item.ID));
+                var ideaLikes = likes.Where(i => i.IdeaID.Equals(item.ID));
+
+                IdeaViewModel formattedIdea = new IdeaViewModel
+                {
+                    Idea = item,
+                    Comments = await ideaComments.ToListAsync(),
+                    Likes = await ideaLikes.ToListAsync()
+                };
+
+                ideasModel.Add(formattedIdea);
+            }
+            //List<Comment> commentsList = await comments.ToListAsync();
+            //dynamic myModel = new ExpandoObject();
+            //myModel.Ideas = await ideas.ToListAsync();
+            //myModel.Comments = commentsList;
+            //myModel.Likes = await likes.ToListAsync();
+            return View(ideasModel);
         }
 
         // GET: Ideas/Details/5

@@ -29,6 +29,11 @@ namespace eIdeas.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
+        public async Task<IActionResult> Index()
+        {
+            return  View();
+        }
         // GET: /<controller>/
         public async Task<IActionResult> ViewComment(int ideaID)
         {
@@ -49,7 +54,7 @@ namespace eIdeas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index));
             }
-            return RedirectToAction(nameof(IdeasController.Index));
+            return View(comment);
         }
 
     }

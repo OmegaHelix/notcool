@@ -7,10 +7,10 @@ namespace eIdeas.Models
 {
     public class IdeaViewModel
     {
-        public Idea idea { get; set; }
+        public Idea Idea { get; set; }
 
-        public List<Like> likes { get; set; }
+        public List<Like> Likes { get; set; }
 
-        public List<Comment> comments { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }
