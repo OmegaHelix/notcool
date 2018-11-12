@@ -59,10 +59,12 @@ namespace eIdeas.Areas.Identity.Pages.Account
             [Display(Name = "Last name")]
             public string Lastname { get; set; }
 
+            [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Team")]
             public string Team { get; set; }
 
+            [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Role")]
             public string Role { get; set; }

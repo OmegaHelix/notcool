@@ -10,6 +10,7 @@ using eIdeas.Models;
 using eIdeas.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Dynamic;
 
 namespace eIdeas.Controllers
 {
@@ -31,7 +32,8 @@ namespace eIdeas.Controllers
         public async Task<IActionResult> Index(string searchFilter, string searchString)
         {
             var ideas = from i in _context.Idea select i;
-
+            var comments = from i in _context.Comment select i;
+            var likes = from i in _context.Like select i;
   
             if (!String.IsNullOrEmpty(searchFilter))
             {
@@ -64,8 +66,11 @@ namespace eIdeas.Controllers
             {
                 ideas = ideas.Where(i => i.Title.Contains(searchString));
             }
-
-            return View(await ideas.ToListAsync());
+            dynamic myModel = new ExpandoObject();
+            myModel.Ideas = await ideas.ToListAsync();
+            myModel.Comments = await comments.ToListAsync();
+            myModel.Likes = await likes.ToListAsync();
+            return View(myModel);
             //return View(await _context.Idea.ToListAsync());
         }
 
@@ -138,6 +143,20 @@ namespace eIdeas.Controllers
             return View(idea);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateComment([Bind("CommentID,IdeaID,UserID,UserName,UserComment")] Comment comment)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            comment.UserID = user.Id;
+            comment.UserName = user.Firstname + " " + user.Lastname;
+            if (ModelState.IsValid)
+            {
+                _context.Add(comment);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(comment);
+        }
         // POST: Ideas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

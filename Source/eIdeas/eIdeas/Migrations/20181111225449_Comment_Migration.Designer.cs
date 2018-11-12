@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eIdeas.Data;
 
 namespace eIdeas.Migrations
 {
     [DbContext(typeof(IdeasContext))]
-    partial class IdeasContextModelSnapshot : ModelSnapshot
+    [Migration("20181111225449_Comment_Migration")]
+    partial class Comment_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +32,6 @@ namespace eIdeas.Migrations
                     b.Property<string>("UserComment");
 
                     b.Property<string>("UserID");
-
-                    b.Property<string>("UserName");
 
                     b.HasKey("CommentID");
 

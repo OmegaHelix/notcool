@@ -1,4 +1,4 @@
-﻿@model IEnumerable<eIdeas.Models.Idea>
+﻿@model dynamic
 @using Microsoft.AspNetCore.Identity
 @using eIdeas.Areas.Identity.Data
 @inject SignInManager<eIdeasUser> SignInManager
@@ -34,19 +34,19 @@
         </div>
     </p>
 </form>
-@foreach (var item in Model.Reverse())
+@foreach (var item in Model.Ideas)
 {
     <p></p>
     <div class="card" style="border-color: darkgrey; background-color: aliceblue">
         <div class="card-body">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-11"><b>@Html.DisplayFor(modelItem => item.Name)</b></div>
-                    <div class="float-right col-sm-1 text-muted">#: @Html.DisplayFor(modelItem => item.ID)</div>
+                    <div class="col-sm-11"><b>@item.Name</b></div>
+                    <div class="float-right col-sm-1 text-muted">#: @item.ID</div>
                     <p></p>
                 </div>
-                <div><span class="text-muted">Title: </span>@Html.DisplayFor(modelItem => item.Title)</div>
-                <div><span class="text-muted">Solution: </span>@Html.DisplayFor(modelItem => item.Solution)</div>
+                <div><span class="text-muted">Title: </span>@item.Title</div>
+                <div><span class="text-muted">Solution: </span>@item.Solution</div>
                 <div class="row">
                     <div class="col-sm-1"><span class="text-muted">Status: </span></div>
                     <div class="col-sm-5">
@@ -98,20 +98,47 @@
                     </div>
                 </div>
                 <div>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        if (comment.ideaID == item.ID)
+                        {
+                            <div><span class="text-muted">User: </span>@comment.UserName</div>
+                            <div><span class="text-muted">Comment: </span>@comment.UserComment</div>
+                        }
+                    }
                     <img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment" />
-                    <script>$("[data-toggle=popover]").each(function(i, obj) {
+                    <script>
+                        $("[data-toggle=popover]").each(function (i, obj) {
                             $(this).popover({
-                                  html: true,
-                                  content: function() {
-                                  var id = $(this).attr('id')
-                                  return $('#popover-content-' + id).html();
-                              }
+                                html: true,
+                                content: function () {
+                                    var id = $(this).attr('id')
+                                    return $('#popover-content-' + id).html();
+                                }
                             });
                         });</script>
                     <div id="popover-content-comment" hidden>
-                        <form asp-controller="Ideas" asp-action="Index" method="get">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button type="submit" class="badge badge-pill badge-primary">submit</button>
+                        <form asp-controller="Ideas" asp-action="CreateComment">
+                            <input type="hidden" asp-for="ID" />
+
+                            <div class="form-group">
+                                <label asp-for="UserID" class="control-label"></label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Problem" class="control-label"></label>
+                                <input asp-for="Problem" class="form-control" />
+                                <span asp-validation-for="Problem" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Solution" class="control-label"></label>
+                                <textarea asp-for="Solution" class="form-control"></textarea>
+                                <span asp-validation-for="Solution" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Comment" class="btn btn-primary" />
+                            </div>
                         </form>
                     </div>
                     <img src="~/images/svg/thumb-up.svg" alt="ASP.NET" />
