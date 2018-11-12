@@ -66,9 +66,10 @@ namespace eIdeas.Controllers
             {
                 ideas = ideas.Where(i => i.Title.Contains(searchString));
             }
+            List<Comment> commentsList = await comments.ToListAsync();
             dynamic myModel = new ExpandoObject();
             myModel.Ideas = await ideas.ToListAsync();
-            myModel.Comments = await comments.ToListAsync();
+            myModel.Comments = commentsList;
             myModel.Likes = await likes.ToListAsync();
             return View(myModel);
             //return View(await _context.Idea.ToListAsync());
@@ -143,20 +144,6 @@ namespace eIdeas.Controllers
             return View(idea);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateComment([Bind("CommentID,IdeaID,UserID,UserName,UserComment")] Comment comment)
-        {
-            var user = await _userManager.GetUserAsync(User);
-            comment.UserID = user.Id;
-            comment.UserName = user.Firstname + " " + user.Lastname;
-            if (ModelState.IsValid)
-            {
-                _context.Add(comment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(comment);
-        }
         // POST: Ideas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

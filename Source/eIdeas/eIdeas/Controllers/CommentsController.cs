@@ -42,13 +42,14 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             comment.UserID = user.Id;
+            comment.UserName = user.Firstname + " " + user.Lastname;
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index));
             }
-            return View(comment);
+            return RedirectToAction(nameof(IdeasController.Index));
         }
 
     }
