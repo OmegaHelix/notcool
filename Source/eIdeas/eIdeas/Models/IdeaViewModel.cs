@@ -11,6 +11,10 @@ namespace eIdeas.Models
 
         public List<Like> Likes { get; set; }
 
+        public bool Liked { get; set; }
+
         public List<Comment> Comments { get; set; }
+
+        public bool Subscribed { get; set; }
     }
 }

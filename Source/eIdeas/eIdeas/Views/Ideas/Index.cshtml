@@ -99,7 +99,7 @@
                 </div>
                 <div>
                     @await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments , new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })
-                    <img src="~/images/svg/thumb-up.svg" alt="ASP.NET" />
+                    @await  Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.Likes, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } , { "liked", item.Liked } })
                 </div>
             </div>
         </div>

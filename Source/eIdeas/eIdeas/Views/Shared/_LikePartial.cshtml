@@ -1,0 +1,13 @@
+﻿@model IEnumerable<eIdeas.Models.Like>
+
+
+
+@if(ViewData["liked"].ToString() == "true")
+{
+    <p>Liked Bruh</p>
+}
+else
+{
+    <p>Nasty</p>
+}
+<img src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="location.href='@Url.Action("LikeIdea","Like")'"/>@Model.Count()

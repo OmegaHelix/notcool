@@ -34,7 +34,9 @@ namespace eIdeas.Controllers
             var ideas = from i in _context.Idea select i;
             var comments = from i in _context.Comment select i;
             var likes = from i in _context.Like select i;
-  
+            var subscriptions = from i in _context.Subscribe select i;
+            var user = await _userManager.GetUserAsync(User);
+
             if (!String.IsNullOrEmpty(searchFilter))
             {
                 if(searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
@@ -68,16 +70,21 @@ namespace eIdeas.Controllers
             }
 
             List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
+            bool userLike = false, userSub = false;
+
             foreach(var item in ideas)
             {
                 var ideaComments = comments.Where(i => i.IdeaID.Equals(item.ID));
                 var ideaLikes = likes.Where(i => i.IdeaID.Equals(item.ID));
-
+                userLike = ideaLikes.Any(i => i.UserID == user.Id);
+                userSub = subscriptions.Any(i => i.UserID == user.Id && i.IdeaID == item.ID);
                 IdeaViewModel formattedIdea = new IdeaViewModel
                 {
                     Idea = item,
                     Comments = await ideaComments.ToListAsync(),
-                    Likes = await ideaLikes.ToListAsync()
+                    Likes = await ideaLikes.ToListAsync(),
+                    Liked = userLike,
+                    Subscribed = userSub
                 };
 
                 ideasModel.Add(formattedIdea);
