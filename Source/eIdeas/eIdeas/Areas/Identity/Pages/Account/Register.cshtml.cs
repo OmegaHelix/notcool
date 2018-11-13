@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using System.Net;
 
 namespace eIdeas.Areas.Identity.Pages.Account
 {
@@ -75,8 +76,8 @@ namespace eIdeas.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             //[Url]
-            [Display(Name = "PictureURL")]
-            public string PictureURL { get; set; }
+            [Display(Name = "Picture")]
+            public IFormFile Picture { get; set; }
 
             //[Required]
             [Display(Name = "Image")]
@@ -101,7 +102,7 @@ namespace eIdeas.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
-            returnUrl = returnUrl ?? Url.Content("~/");
+            returnUrl = returnUrl ?? Url.Content("~/Ideas/Index");
             if (ModelState.IsValid)
             {
                 var user = new eIdeasUser {
@@ -111,37 +112,18 @@ namespace eIdeas.Areas.Identity.Pages.Account
                     Lastname = Input.Lastname,
                     Team = Input.Team,
                     Role = Input.Role,
-                    PictureURL = "https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063"
                 };
 
-
-                var image = HttpContext.Request.Form.Files;
-
-
-
-                if (image.Count > 0)
+                // convert image stream to byte array
+                var inFiles = HttpContext.Request.Form.Files;
+                if (inFiles.Count == 1)
+                    user.Picture = ConvertToBytes(inFiles[0]);
+                else
                 {
-                    Input.Image = image[0];
-                    var fileName = string.Empty;
-                    var newFileName = string.Empty;
-                    //Getting FileName
-                    fileName = ContentDispositionHeaderValue.Parse(Input.Image.ContentDisposition).FileName.Trim('"');
-
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
-
-                    //Getting file Extension
-                    var FileExtension = Path.GetExtension(fileName);
-
-                    // concating  FileName + FileExtension
-                    newFileName = myUniqueFileName + FileExtension;
-
-                    // Combines two strings into a path.
-                    user.PictureURL = Path.Combine(_environment.WebRootPath, "images/") + newFileName;
-
-                    using (var fileStream = System.IO.File.Create(user.PictureURL))
+                    string someUrl = "https://www.princeton-house.org/Handlers/ViewUserPhoto.ashx?id=3063";
+                    using (var webClient = new WebClient())
                     {
-                        await Input.Image.CopyToAsync(fileStream);
+                        user.Picture = webClient.DownloadData(someUrl);
                     }
                 }
 
@@ -171,5 +153,16 @@ namespace eIdeas.Areas.Identity.Pages.Account
 
             return Page();
         }
+
+        private byte[] ConvertToBytes(IFormFile image)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                image.OpenReadStream().CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
+        }
     }
 }
+
+

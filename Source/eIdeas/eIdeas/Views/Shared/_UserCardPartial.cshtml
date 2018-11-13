@@ -4,8 +4,9 @@
 @inject UserManager<eIdeasUser> UserManager
 @if (SignInManager.IsSignedIn(User))
 {
+    var user = UserManager.GetUserAsync(User).Result;
     <div class="card" style="margin:0 auto; width: 18rem;">
-        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem; min-height:280px; flex-shrink: 0;border: 1px solid transparent;" src="~/images/svg/nws_GodOfWar13.jpg" />
+        <img class="rounded-circle card-img-top" style="width:100%; padding:1rem; min-height:280px; flex-shrink: 0;border: 1px solid transparent;" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = UserManager.GetUserId(User) })" />
         <div class="card-body" style="margin:0 auto; width: 18rem; padding-top: 0rem;">
             <h4 class="mx-auto text-center card-title h4">@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.Lastname</h4>
             <ul class="nav mx-auto flex-column">
