@@ -26,13 +26,60 @@ namespace eIdeas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LikeIdea([Bind("LikeID,UserID,Liked,UserID")] Like like)
+        public async Task<IActionResult> LikeIdea([Bind("LikeID,UserID,Liked,IdeaID")] Like like)
         {
-            return RedirectToAction(nameof(IdeasController.Index));
+            var user = await _userManager.GetUserAsync(User);
+            like.UserID = user.Id;
+            
+            if(like.Liked)
+            {
+                like.Liked = false;
+            }
+            else
+            {
+                like.Liked = true;
+            }
+            var thingy = "Nothing";
+            //if (ModelState.IsValid)
+            //{
+                if(!_context.Like.Any(e => e.UserID.Equals(user.Id) && e.IdeaID == like.IdeaID))
+                {
+                thingy = "Add";
+                    _context.Add(like);
+                    await _context.SaveChangesAsync();
+                }
+                else
+                {
+                    try
+                    {
+                    thingy = "Update";
+                        _context.Like.Update(like);
+                        await _context.SaveChangesAsync();
+                    }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!LikeExists(like.LikeID))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                }
+               
+            bool stupid = _context.Like.Any(e => e.UserID.Equals(user.Id) && e.IdeaID == like.IdeaID);
+            like.Liked = stupid;
+            like.UserID = thingy;
+            //return RedirectToAction(nameof(IdeasController.Index),"Ideas");
+            return View(like);
+            //}
+            //return View(like);
         }
         
 
-        private bool IdeaExists(int id)
+        private bool LikeExists(int id)
         {
             return _context.Like.Any(e => e.LikeID == id);
         }
