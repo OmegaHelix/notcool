@@ -4,7 +4,8 @@
 @inject SignInManager<eIdeasUser> SignInManager
 @inject UserManager<eIdeasUser> UserManager
 
-<span><img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment" /></span>
+<span><img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" 
+           data-placement="right" data-html="true" id="@ViewData["id"]" /></span>
 <script>
     $("[data-toggle=popover]").each(function (i, obj) {
             $(this).popover({
@@ -16,7 +17,7 @@
             });
         });
 </script>
-<div id="popover-content-comment" hidden>
+<div id="popover-content-@ViewData["id"]" hidden>
     <form asp-controller="Comments" asp-action="CreateComment">
         <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
         <div class="form-group">
