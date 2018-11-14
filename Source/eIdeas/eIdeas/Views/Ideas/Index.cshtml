@@ -49,7 +49,7 @@
                     <div class="container" style="padding: 0px; margin:0px; max-width: initial;">
                         <div class="row" style="margin:0px">
                            
-                            <div class="col-auto mr-auto col-md-4" style="padding: 0px;">
+                            <div class="col-auto mr-auto col-md-7" style="padding: 0px;">
                                 <div class="progress" style="height: 15px">
                                     @if (item.Idea.Status == "Pending")
                                     {
@@ -98,10 +98,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.Likes, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "liked", item.Liked } })</span>
+                        </div>                                     
+                    </div>
                     <div>
-                        <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
-                        <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.Likes, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "liked", item.Liked } })</span>
-
                         @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })
                     </div>
                 </div>
