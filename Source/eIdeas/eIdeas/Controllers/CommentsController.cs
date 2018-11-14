@@ -30,14 +30,6 @@ namespace eIdeas.Controllers
             _signInManager = signInManager;
         }
 
-        // GET: /<controller>/
-        public async Task<IActionResult> ViewComment(int ideaID)
-        {
-            var comments = from i in _context.Comment select i;
-            comments = comments.Where(i => i.IdeaID.Equals(ideaID));
-            return View(await comments.ToListAsync());
-        }
-
         [HttpPost]
         public async Task<IActionResult> CreateComment([Bind("CommentID,IdeaID,UserID,UserComment")] Comment comment)
         {
@@ -50,7 +42,7 @@ namespace eIdeas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index),"Ideas");
             }
-            return View(comment);
+            return RedirectToAction(nameof(HomeController.Error), "Error");
         }
 
     }

@@ -4,18 +4,22 @@
 @inject SignInManager<eIdeasUser> SignInManager
 @inject UserManager<eIdeasUser> UserManager
 
-<span><img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" 
-           data-placement="right" data-html="true" id="@ViewData["id"]" /></span>
+@await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", Model)
+
+<span>
+    <img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body"
+         data-placement="right" data-html="true" id="@ViewData["id"]" />
+</span>
 <script>
     $("[data-toggle=popover]").each(function (i, obj) {
-            $(this).popover({
-                html: true,
-                content: function () {
-                    var id = $(this).attr('id')
-                    return $('#popover-content-' + id).html();
-                }
-            });
+        $(this).popover({
+            html: true,
+            content: function () {
+                var id = $(this).attr('id')
+                return $('#popover-content-' + id).html();
+            }
         });
+    });
 </script>
 <div id="popover-content-@ViewData["id"]" hidden>
     <form asp-controller="Comments" asp-action="CreateComment">

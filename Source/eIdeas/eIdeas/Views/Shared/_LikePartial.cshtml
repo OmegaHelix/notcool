@@ -1,29 +1,27 @@
-﻿@model IEnumerable<eIdeas.Models.Like>
+﻿@model eIdeas.Models.Like
 @using Microsoft.AspNetCore.Identity
 @using eIdeas.Areas.Identity.Data
 @inject SignInManager<eIdeasUser> SignInManager
 @inject UserManager<eIdeasUser> UserManager
 
-@if (ViewData["liked"].ToString() == "true")
+@if (Model != null)
 {
-
+<form asp-controller="Like" asp-action="LikeIdea" name="formName">
+    <input type="hidden" name="LikeID" value="@Model.LikeID" />
+    <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
+    <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+    <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+</form>
+ @ViewData["LikeCount"]
 }
 else
 {
-    var userLikeID = 0;
-    if(Model.Any(i=> i.IdeaID.Equals(ViewData["id"]) && i.UserID.Equals(UserManager.GetUserAsync(User).Id)))
-    {
-        var userlike = Model.Where(i => i.IdeaID.Equals(ViewData["id"]) && i.UserID.Equals(UserManager.GetUserAsync(User).Id));
-        userLikeID = userlike.ElementAt(0).LikeID;
-    }
-    <form asp-controller="Like" asp-action="LikeIdea" name="formName">
-        <input type="hidden" name="LikeID" value="@userLikeID" />
-        <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
-        <input type="hidden" name="Liked" value="@ViewData["liked"]" />
-            <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
-    </form>
-    @Model.Count()
 
-    // <img id="btnJson" src="~/images/svg/thumb-up.svg" alt="ASP.NET" />@Model.Count()
+    <form asp-controller="Like" asp-action="LikeIdea" name="formName">
+        <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
+        <input type="hidden" name="Liked" value="false" />
+        <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+    </form>
+    @ViewData["LikeCount"]
 }
 

@@ -9,12 +9,12 @@ namespace eIdeas.Models
     {
         public Idea Idea { get; set; }
 
-        public List<Like> Likes { get; set; }
+        public int LikeCount { get; set; }
 
-        public bool Liked { get; set; }
+        public Like UserLike { get; set; }
 
         public List<Comment> Comments { get; set; }
 
-        public bool Subscribed { get; set; }
+        public Subscribe Subscription { get; set; }
     }
 }

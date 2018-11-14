@@ -70,30 +70,26 @@ namespace eIdeas.Controllers
             }
 
             List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
-            bool userLike = false, userSub = false;
+            Like userLike;
+            Subscribe userSub;
 
             foreach(var item in ideas)
             {
                 var ideaComments = comments.Where(i => i.IdeaID.Equals(item.ID));
-                var ideaLikes = likes.Where(i => i.IdeaID.Equals(item.ID));
-                userLike = ideaLikes.Any(i => i.UserID == user.Id);
-                userSub = subscriptions.Any(i => i.UserID == user.Id && i.IdeaID == item.ID);
+                var ideaLikes = likes.Where(i => i.IdeaID.Equals(item.ID) && i.Liked == true);
+                userLike = await ideaLikes.Where(i => i.UserID.Equals(user.Id)).FirstOrDefaultAsync();
+                userSub = await subscriptions.Where(i => i.UserID == user.Id && i.IdeaID == item.ID).FirstOrDefaultAsync();
                 IdeaViewModel formattedIdea = new IdeaViewModel
                 {
                     Idea = item,
                     Comments = await ideaComments.ToListAsync(),
-                    Likes = await ideaLikes.ToListAsync(),
-                    Liked = userLike,
-                    Subscribed = userSub
+                    LikeCount = ideaLikes.Count(),
+                    UserLike = userLike,
+                    Subscription = userSub
                 };
 
                 ideasModel.Add(formattedIdea);
             }
-            //List<Comment> commentsList = await comments.ToListAsync();
-            //dynamic myModel = new ExpandoObject();
-            //myModel.Ideas = await ideas.ToListAsync();
-            //myModel.Comments = commentsList;
-            //myModel.Likes = await likes.ToListAsync();
             return View(ideasModel);
         }
 

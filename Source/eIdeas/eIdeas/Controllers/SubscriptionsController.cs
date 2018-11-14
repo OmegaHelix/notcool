@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace eIdeas.Controllers
 {
-    public class LikeController : Controller
+    public class SubscriptionsController : Controller
     {
         private readonly IdeasContext _context;
         private readonly UserManager<eIdeasUser> _userManager;
         private readonly SignInManager<eIdeasUser> _signInManager;
 
-        public LikeController(IdeasContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
+        public SubscriptionsController(IdeasContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
         {
             _context = context;
             _userManager = userManager;
@@ -24,35 +24,35 @@ namespace eIdeas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LikeIdea([Bind("LikeID,UserID,Liked,IdeaID")] Like like)
+        public async Task<IActionResult> SubscribeToIdea([Bind("SubscriptionID,UserID,Subscribed,IdeaID")] Subscribe subscribe)
         {
             var user = await _userManager.GetUserAsync(User);
-            like.UserID = user.Id;
-            if (like.Liked == true)
+            subscribe.UserID = user.Id;
+            if (subscribe.Subscribed == true)
             {
-                like.Liked = false;
+                subscribe.Subscribed = false;
             }
-            else if(like.Liked == false)
+            else if (subscribe.Subscribed == false)
             {
-                like.Liked = true;
+                subscribe.Subscribed = true;
             }
             if (ModelState.IsValid)
             {
-                if (!_context.Like.Any(e => e.UserID.Equals(user.Id) && e.IdeaID == like.IdeaID))
+                if (!_context.Subscribe.Any(e => e.UserID.Equals(user.Id) && e.IdeaID == subscribe.IdeaID))
                 {
-                    _context.Add(like);
+                    _context.Add(subscribe);
                     await _context.SaveChangesAsync();
                 }
                 else
                 {
                     try
                     {
-                        _context.Like.Update(like);
+                        _context.Subscribe.Update(subscribe);
                         await _context.SaveChangesAsync();
                     }
                     catch (DbUpdateConcurrencyException)
                     {
-                        if (!LikeExists(like.LikeID))
+                        if (!SubscribeExists(subscribe.SubscriptionID))
                         {
                             return NotFound();
                         }
@@ -66,11 +66,11 @@ namespace eIdeas.Controllers
             }
             return RedirectToAction(nameof(HomeController.Error), "Error");
         }
-        
 
-        private bool LikeExists(int id)
+
+        private bool SubscribeExists(int id)
         {
-            return _context.Like.Any(e => e.LikeID == id);
+            return _context.Subscribe.Any(e => e.SubscriptionID == id);
         }
     }
 }
