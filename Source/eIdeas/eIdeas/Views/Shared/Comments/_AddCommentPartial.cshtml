@@ -4,19 +4,18 @@
 @inject SignInManager<eIdeasUser> SignInManager
 @inject UserManager<eIdeasUser> UserManager
 
-@await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", Model)
-
-<img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment" />
+<span><img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment" /></span>
 <script>
     $("[data-toggle=popover]").each(function (i, obj) {
-        $(this).popover({
-            html: true,
-            content: function () {
-                var id = $(this).attr('id')
-                return $('#popover-content-' + id).html();
-            }
+            $(this).popover({
+                html: true,
+                content: function () {
+                    var id = $(this).attr('id')
+                    return $('#popover-content-' + id).html();
+                }
+            });
         });
-    });</script>
+</script>
 <div id="popover-content-comment" hidden>
     <form asp-controller="Comments" asp-action="CreateComment">
         <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
@@ -25,7 +24,8 @@
             <textarea name="UserComment" class="form-control"></textarea>
         </div>
         <div class="form-group">
-            <input type="submit" value="Comment" class="btn btn-primary" />
+            <input type="submit" value="Comment" class="btn btn-primary btn-sm" />
         </div>
     </form>
 </div>
+

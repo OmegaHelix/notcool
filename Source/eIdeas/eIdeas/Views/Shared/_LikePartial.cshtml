@@ -16,13 +16,11 @@ else
         var userlike = Model.Where(i => i.IdeaID.Equals(ViewData["id"]) && i.UserID.Equals(UserManager.GetUserAsync(User).Id));
         userLikeID = userlike.ElementAt(0).LikeID;
     }
-    <form asp-controller="Like" asp-action="LikeIdea">
+    <form asp-controller="Like" asp-action="LikeIdea" name="formName">
         <input type="hidden" name="LikeID" value="@userLikeID" />
         <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
         <input type="hidden" name="Liked" value="@ViewData["liked"]" />
-        <div class="form-group">
-            <input type="submit" value="Like" class="btn btn-primary" />
-        </div>
+            <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
     </form>
     @Model.Count()
 
