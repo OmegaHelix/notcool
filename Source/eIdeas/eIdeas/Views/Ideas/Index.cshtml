@@ -49,7 +49,6 @@
                     <div><span class="text-muted">Solution: </span>@item.Idea.Solution</div>
                     <div class="container" style="padding: 0px; margin:0px; max-width: initial;">
                         <div class="row" style="margin:0px">
-
                             <div class="col-auto mr-auto col-md-7" style="padding: 0px;">
                                 <div class="progress" style="height: 15px">
                                     @if (item.Idea.Status == "Pending")
@@ -109,6 +108,9 @@
                         <div class="col-sm-1">
                             <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", item.Subscription, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
                         </div>
+                    </div>
+                    <div>
+                        @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", item.Comments)
                     </div>
                     <div>
                     </div>
