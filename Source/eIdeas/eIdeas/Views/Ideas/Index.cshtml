@@ -39,7 +39,7 @@
     <p></p>
     <div class="card" style="border-color: darkgrey; background-color: aliceblue">
         <div class="card-body">
-            
+
             <div class="media">
                 <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = item.Idea.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
                 <div class="media-body">
@@ -50,7 +50,7 @@
                     <div class="container" style="padding: 0px; margin:0px; max-width: initial;">
                         <div class="row" style="margin:0px">
 
-                            <div class="col-auto mr-auto col-md-4" style="padding: 0px;">
+                            <div class="col-auto mr-auto col-md-7" style="padding: 0px;">
                                 <div class="progress" style="height: 15px">
                                     @if (item.Idea.Status == "Pending")
                                     {
@@ -99,11 +99,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.UserLike, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "LikeCount", item.LikeCount } })</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", item.Subscription, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                        </div>
+                    </div>
                     <div>
-                        <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
-                        <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.UserLike, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "LikeCount", item.LikeCount } })</span>
-                        <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", item.Subscription, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
-
                     </div>
                 </div>
             </div>
