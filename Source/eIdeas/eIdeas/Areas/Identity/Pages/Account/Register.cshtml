@@ -25,12 +25,56 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.Team"></label>
-                <input asp-for="Input.Team" class="form-control" />
+                <select asp-for="Input.Team" name="Input.Team" class="form-control">
+                    <optgroup label="IT Consolidation" />
+                    <option value="LabourRelations">Labour Relations</option>
+                    <optgroup label="Culture, Collaboration, Innovation" />
+                    <option value="ContinuousImprovement">Continuous Improvement</option>
+                    <option value="BusinessAnalysis">Business Analysis</option>
+                    <option value="PortfolioManagement">Portfolio Management</option>
+                    <optgroup label="Risk & Quality" />
+                    <option value="DataQuality">Data Quality</option>
+                    <option value="InformationManagement/Services">Information Management/Services</option>
+                    <option value="DataWarehouse">Data Warehouse</option>
+                    <option value="RecordsManagement">Records Management</option>
+                    <option value="HealthRegistries">Health Registries</option>
+                    <option value="Legal&Policy">Legal & Policy</option>
+                    <option value="ITSecurity/RiskManagement">IT Security/Risk Management</option>
+                    <option value="Privacy">Privacy</option>
+                    <option value="AccessManagementServices">Access Management Services</option>
+                    <optgroup label="Communications" />
+                    <option value="Communications">Communications</option>
+                    <option value="TransitionChangeManagement">Transition Change Management</option>
+                    <optgroup label="Executive" />
+                    <option value="CEO">CEO</option>
+                    <option value="VPsandDirectorofCommunications">VP’s and Director of Communications</option>
+                    <optgroup label="Human Resources" />
+                    <option value="HumanResources">Human Resources</option>
+                    <optgroup label="Information Technology" />
+                    <option value="ClientServices">Client Services</option>
+                    <option value="Network&Servers">Network & Servers</option>
+                    <option value="ServiceDesk">Service Desk</option>
+                    <option value="Applications&Integrations">Applications & Integrations</option>
+                    <option  selected value="Testing">Testing </option>
+                    <option value="ITArchitecture">IT Architecture</option>
+                    <option value="DatabaseServices">Database Services</option>
+                    <option value="ITChange&Release">IT Change & Release</option>
+                    <optgroup label="Business Relations and Programs" />
+                    <option value="BusinessRelationsandPrograms">Business Relations and Programs</option>
+                    <optgroup label="Finance and Administration" />
+                    <option value="ExecutiveAdministration">Executive Administration</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Payroll">Payroll</option>
+                    <option value="Contracts&Facilities">Contracts & Facilities</option>
+                </select>
                 <span asp-validation-for="Input.Team" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Role"></label>
-                <input asp-for="Input.Role" class="form-control" />
+                <select asp-for="Input.Role" list="Input.Role" name="Input.Role" class="form-control">
+                    <option value="Manager">Manager</option>
+                    <option selected value="TeamMember">Team Member</option>
+                </select>
                 <span asp-validation-for="Input.Role" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +84,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.Image"></label><br />
-                <span> Select image to upload: </span>
+                <span> Select image to upload: (Optional)</span>
                 <input asp-for="Input.Image" type="file" name="file" accept=".png, .pdf, .jpg, .jpeg, .gif" />
             </div>
             <div class="form-group">

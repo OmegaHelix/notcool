@@ -75,9 +75,7 @@ namespace eIdeas.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            //[Url]
-            [Display(Name = "Picture")]
-            public IFormFile Picture { get; set; }
+
 
             //[Required]
             [Display(Name = "Image")]
