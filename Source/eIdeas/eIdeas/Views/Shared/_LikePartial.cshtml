@@ -8,11 +8,11 @@
 {
     <div class="row">
         <div class="col-sm-1">
-            <form asp-controller="Like" asp-action="LikeIdea" name="formName">
+            <form asp-controller="Like" asp-action="LikeIdea" name="formName-@Model.IdeaID">
                 <input type="hidden" name="LikeID" value="@Model.LikeID" />
                 <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
                 <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName-@Model.IdeaID'].submit();" />
             </form>
         </div>
         <div class="col-sm-1">
@@ -25,10 +25,10 @@ else
 {
     <div class="row">
         <div class="col-sm-1">
-            <form asp-controller="Like" asp-action="LikeIdea" name="formName">
+            <form asp-controller="Like" asp-action="LikeIdea" name="formName-@ViewData["id"]">
                 <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
                 <input type="hidden" name="Liked" value="false" />
-                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName-@ViewData["id"]'].submit();" />
             </form>
         </div>
         <div class="col-sm-1">
