@@ -1,4 +1,4 @@
-﻿@model eIdeas.Models.Subscribe
+@model eIdeas.Models.Subscribe
 @using Microsoft.AspNetCore.Identity
 @using eIdeas.Areas.Identity.Data
 @inject SignInManager<eIdeasUser> SignInManager
@@ -12,11 +12,11 @@
     <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
     @if (Model.Subscribed == true)
     {
-        <input type="submit" value="Unsubscribe" class="btn btn-primary" />
+        <input type="submit" value="Unsubscribe" class="btn btn-primary btn-sm" />
     }
     else
     {
-        <input type="submit" value="Subscribe" class="btn btn-primary" />
+        <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
     }
 </form>
 }
@@ -26,6 +26,6 @@ else
     <form asp-controller="Subscriptions" asp-action="SubscribeToIdea" name="Subscribe-@ViewData["id"]">
         <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
         <input type="hidden" name="Subscribed" value="false" />
-        <input type="submit" value="Subscribe" class="btn btn-primary" />
+        <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
     </form>
 }
