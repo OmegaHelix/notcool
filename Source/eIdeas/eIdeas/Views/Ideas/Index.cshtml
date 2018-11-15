@@ -8,12 +8,12 @@
 }
 <body id="ideaIndexPage">
     <h2 class="display-5">Ideas</h2>
-    <p><a asp-action="Create" class="btn btn-primary btn-sm">Create New</a></p>
+    <p><a asp-action="Create" class="btn btn-primary btn-sm" style="border-color: lightgrey">Create New</a></p>
     <form asp-controller="Ideas" asp-action="Index" method="get">
         <p>
             <div class="input-group mt-3 mb-3">
                 <div class="input-group-prepend">
-                    <select name="SearchFilter" class="btn btn-primary dropdown-toggle btn-sm">
+                    <select name="SearchFilter" class="btn btn-primary dropdown-toggle btn-sm" style="background-color: MediumSeaGreen; border-color: darkgrey">
                         <option value="" selected disabled hidden>Filter</option>
                         <option value="ID">Idea Number</option>
                         <option value="Pending">Pending Ideas</option>
@@ -30,7 +30,7 @@
                 </div>
                 <input type="text" name="SearchString" class="form-control" placeholder="Search">
                 <div class="input-group-append">
-                    <input type="submit" class="btn btn-primary btn-sm" value="Search" />
+                    <input type="submit" class="btn btn-primary btn-sm" style="background-color: MediumSeaGreen; border-color: darkgrey" value="Search" />
                 </div>
             </div>
         </p>
@@ -38,7 +38,7 @@
     @foreach (var item in Model.Reverse())
     {
         <p></p>
-        <div class="card" style="border-color: darkgrey; background-color: aliceblue">
+        <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
             <div class="card-body">
 
                 <div class="media">
