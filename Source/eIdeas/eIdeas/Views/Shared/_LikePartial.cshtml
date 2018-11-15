@@ -6,22 +6,34 @@
 
 @if (Model != null)
 {
-<form asp-controller="Like" asp-action="LikeIdea" name="formName">
-    <input type="hidden" name="LikeID" value="@Model.LikeID" />
-    <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
-    <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-    <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
-</form>
- @ViewData["LikeCount"]
+    <div class="row">
+        <div class="col-sm-1">
+            <form asp-controller="Like" asp-action="LikeIdea" name="formName">
+                <input type="hidden" name="LikeID" value="@Model.LikeID" />
+                <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
+                <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+            </form>
+        </div>
+        <div class="col-sm-1">
+
+            @ViewData["LikeCount"]
+        </div>
+    </div>
 }
 else
 {
-
-    <form asp-controller="Like" asp-action="LikeIdea" name="formName">
-        <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
-        <input type="hidden" name="Liked" value="false" />
-        <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
-    </form>
-    @ViewData["LikeCount"]
+    <div class="row">
+        <div class="col-sm-1">
+            <form asp-controller="Like" asp-action="LikeIdea" name="formName">
+                <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
+                <input type="hidden" name="Liked" value="false" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['formName'].submit();" />
+            </form>
+        </div>
+        <div class="col-sm-1">
+            @ViewData["LikeCount"]
+        </div>
+    </div>
 }
 
