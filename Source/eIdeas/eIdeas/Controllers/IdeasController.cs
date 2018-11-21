@@ -18,12 +18,14 @@ namespace eIdeas.Controllers
     public class IdeasController : Controller
     {
         private readonly IdeasContext _context;
+        private readonly eIdeasUsersContext _usersContext;
         private readonly UserManager<eIdeasUser> _userManager;
         private readonly SignInManager<eIdeasUser> _signInManager;
 
-        public IdeasController(IdeasContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
+        public IdeasController(IdeasContext context, eIdeasUsersContext usersContext, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
         {
             _context = context;
+            _usersContext = usersContext;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -169,20 +171,19 @@ namespace eIdeas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,UserID,Title,Problem,Solution,Status,Team,UploadDate")] Idea idea)
         {
-            var user = await _userManager.GetUserAsync(User);
+
+            // if the idea isn't found return null
+            // error case
             if (id != idea.ID)
             {
                 return NotFound();
             }
-            if (user.Firstname != null)
-            {
-                idea.Name = user.Firstname + " " + user.Lastname;
-            }
-            else
-            {
-                idea.Name = "Anon";
-            }
-            idea.UploadDate = DateTime.Now;
+            // grab the user associated with this idea
+            var user = _userManager.FindByIdAsync(idea.UserID).Result;
+            idea.UploadDate = idea.UploadDate;
+            idea.UserID = user.Id;
+            idea.Name = user.Firstname + " " + user.Lastname;
+            idea.Team = user.Team;
             if (ModelState.IsValid)
             {
                 try
