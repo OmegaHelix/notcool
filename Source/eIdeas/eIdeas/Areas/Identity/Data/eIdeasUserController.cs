@@ -24,12 +24,11 @@ namespace eIdeas.Areas.Identity.Data
         }
 
 
-        public FileContentResult Photo(String userId)
+        public FileContentResult Photo(String userId = "1fcd8510-61de-4280-a488-eb9b88a968a0")
         {
-
-            var user = _context.Users.Where(x => x.Id == userId).FirstOrDefault();
-
-            return new FileContentResult(user.Picture, "image/jpeg");
+            
+            var user =  _context.Users.Where(x => x.Id == userId).FirstOrDefault();
+                return new FileContentResult(user.Picture, "image/jpeg");
         }
     }
 }
