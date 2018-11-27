@@ -495,3 +495,5 @@ Source/eIdeas/.vs/eIdeas/v15/Server/sqlite3/storage.ide-wal
 *.ide-shm
 *.ide-shm
 *.config
+
+Source/eIdeas/eIdeas/wwwroot/images/

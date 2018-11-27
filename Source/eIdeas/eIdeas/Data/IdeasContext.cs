@@ -15,5 +15,8 @@ namespace eIdeas.Data
         }
 
         public DbSet<eIdeas.Models.Idea> Idea { get; set; }
+        public DbSet<eIdeas.Models.Like> Like { get; set; }
+        public DbSet<eIdeas.Models.Comment> Comment { get; set; }
+        public DbSet<eIdeas.Models.Subscribe> Subscribe { get; set; }
     }
 }

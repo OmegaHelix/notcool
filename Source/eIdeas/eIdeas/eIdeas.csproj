@@ -17,7 +17,6 @@
   <ItemGroup>
     <Content Remove="wwwroot\images\svg\account-login.svg" />
     <Content Remove="wwwroot\images\svg\account-logout.svg" />
-    <Content Remove="appsettings.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="Views\Shared\_HorizontalNavPartial.cshtml">

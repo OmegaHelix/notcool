@@ -10,6 +10,7 @@ using eIdeas.Models;
 using eIdeas.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Dynamic;
 
 namespace eIdeas.Controllers
 {
@@ -17,12 +18,14 @@ namespace eIdeas.Controllers
     public class IdeasController : Controller
     {
         private readonly IdeasContext _context;
+        private readonly eIdeasUsersContext _usersContext;
         private readonly UserManager<eIdeasUser> _userManager;
         private readonly SignInManager<eIdeasUser> _signInManager;
 
-        public IdeasController(IdeasContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
+        public IdeasController(IdeasContext context, eIdeasUsersContext usersContext, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
         {
             _context = context;
+            _usersContext = usersContext;
             _userManager = userManager;
             _signInManager = signInManager;
         }
@@ -31,15 +34,22 @@ namespace eIdeas.Controllers
         public async Task<IActionResult> Index(string searchFilter, string searchString)
         {
             var ideas = from i in _context.Idea select i;
+            var comments = from i in _context.Comment select i;
+            var likes = from i in _context.Like select i;
+            var subscriptions = from i in _context.Subscribe select i;
+            var user = await _userManager.GetUserAsync(User);
 
-  
             if (!String.IsNullOrEmpty(searchFilter))
             {
-                if(searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
+                if (searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
                     searchFilter.Equals("Check") || searchFilter.Equals("Act") || searchFilter.Equals("Park") ||
                     searchFilter.Equals("Abandon"))
                 {
                     ideas = ideas.Where(i => i.Status.Contains(searchFilter));
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        ideas = ideas.Where(i => i.Title.Contains(searchString));
+                    }
                 }
                 if (searchFilter.Equals("ID"))
                 {
@@ -48,25 +58,48 @@ namespace eIdeas.Controllers
                 if (searchFilter.Equals("Subscribed"))
                 {
                     //TODO Filter by subscriptions
+                    
                 }
                 if (searchFilter.Equals("TeamMember"))
                 {
-                    //TODO Filter by Team member
+                    ideas = ideas.Where(i => i.Name.Contains(searchString) && i.Team.Equals(user.Team));
                 }
                 if (searchFilter.Equals("TeamName"))
                 {
-                    //TODO Filter by Team Name
+                    ideas = ideas.Where(i => i.Team.Contains(searchString));
                 }
 
             }
-
-            if (!String.IsNullOrEmpty(searchString) && searchFilter != "ID")
+            else
             {
-                ideas = ideas.Where(i => i.Title.Contains(searchString));
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    ideas = ideas.Where(i => i.Title.Contains(searchString));
+                }
             }
 
-            return View(await ideas.ToListAsync());
-            //return View(await _context.Idea.ToListAsync());
+            List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
+            Like userLike;
+            Subscribe userSub;
+
+            foreach(var item in ideas)
+            {
+                var ideaComments = comments.Where(i => i.IdeaID.Equals(item.ID));
+                var ideaLikes = likes.Where(i => i.IdeaID.Equals(item.ID) && i.Liked == true);
+                userLike = await ideaLikes.Where(i => i.UserID.Equals(user.Id)).FirstOrDefaultAsync();
+                userSub = await subscriptions.Where(i => i.UserID == user.Id && i.IdeaID == item.ID).FirstOrDefaultAsync();
+                IdeaViewModel formattedIdea = new IdeaViewModel
+                {
+                    Idea = item,
+                    Comments = await ideaComments.ToListAsync(),
+                    LikeCount = ideaLikes.Count(),
+                    UserLike = userLike,
+                    Subscription = userSub
+                };
+
+                ideasModel.Add(formattedIdea);
+            }
+            return View(ideasModel);
         }
 
         // GET: Ideas/Details/5
@@ -145,19 +178,19 @@ namespace eIdeas.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name,UserID,Title,Problem,Solution,Status,Team,UploadDate")] Idea idea)
         {
-            var user = await _userManager.GetUserAsync(User);
+
+            // if the idea isn't found return null
+            // error case
             if (id != idea.ID)
             {
                 return NotFound();
             }
-            if (user.Firstname != null)
-            {
-                idea.Name = user.Firstname + " " + user.Lastname;
-            }
-            else
-            {
-                idea.Name = "Anon";
-            }
+            // grab the user associated with this idea
+            var user = _userManager.FindByIdAsync(idea.UserID).Result;
+            idea.UploadDate = idea.UploadDate;
+            idea.UserID = user.Id;
+            idea.Name = user.Firstname + " " + user.Lastname;
+            idea.Team = user.Team;
             idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {

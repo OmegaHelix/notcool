@@ -15,7 +15,8 @@ namespace eIdeas.Models
             : base(options)
         {
         }
-
+        public DbSet<eIdeas.Areas.Identity.Data.eIdeasUser> Picture  { get; set; }
+        public DbSet<eIdeas.Areas.Identity.Data.eIdeasUser> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

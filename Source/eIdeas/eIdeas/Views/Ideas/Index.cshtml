@@ -1,4 +1,4 @@
-﻿@model IEnumerable<eIdeas.Models.Idea>
+﻿@model IEnumerable<eIdeas.Models.IdeaViewModel>
 @using Microsoft.AspNetCore.Identity
 @using eIdeas.Areas.Identity.Data
 @inject SignInManager<eIdeasUser> SignInManager
@@ -6,117 +6,118 @@
 @{
     ViewData["Title"] = "Ideas";
 }
-<h2 class="display-5">Ideas</h2>
-<p><a asp-action="Create" class="btn btn-primary btn-sm">Create New</a></p>
-<form asp-controller="Ideas" asp-action="Index" method="get">
-    <p>
-        <div class="input-group mt-3 mb-3">
-            <div class="input-group-prepend">
-                <select name="SearchFilter" class="btn btn-primary dropdown-toggle btn-sm">
-                    <option value="" selected disabled hidden>Filter</option>
-                    <option value="ID">Idea Number</option>
-                    <option value="Pending">Pending Ideas</option>
-                    <option value="Plan">Planning Ideas</option>
-                    <option value="Do">Do Ideas</option>
-                    <option value="Check">Check Ideas</option>
-                    <option value="Act">Act Ideas</option>
-                    <option value="Park">Parked Ideas</option>
-                    <option value="Abandon">Abandoned Ideas</option>
-                    <option value="Subscribed">Subscribed</option>
-                    <option value="TeamMember">By Team Member</option>
-                    <option value="TeamName">By Team Name</option>
-                </select>
-            </div>
-            <input type="text" name="SearchString" class="form-control" placeholder="Search">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-primary btn-sm" value="Search" />
-            </div>
-        </div>
-    </p>
-</form>
-@foreach (var item in Model.Reverse())
-{
-    <p></p>
-    <div class="card" style="border-color: darkgrey; background-color: aliceblue">
-        <div class="card-body">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-11"><b>@Html.DisplayFor(modelItem => item.Name)</b></div>
-                    <div class="float-right col-sm-1 text-muted">#: @Html.DisplayFor(modelItem => item.ID)</div>
-                    <p></p>
+<body id="ideasPage">
+    <h2 class="display-5">Ideas</h2>
+    <p><a asp-action="Create" class="btn btn-primary btn-sm" style="border-color: lightgrey">Create New</a></p>
+    <form asp-controller="Ideas" asp-action="Index" method="get">
+        <p>
+            <div class="input-group mt-3 mb-3">
+                <div class="input-group-prepend">
+                    <select name="SearchFilter" class="btn btn-primary dropdown-toggle btn-sm" style="background-color: MediumSeaGreen; border-color: darkgrey">
+                        <option value="" selected >All</option>
+                        <option value="ID">Idea Number</option>
+                        <option value="Pending">Pending Ideas</option>
+                        <option value="Plan">Planning Ideas</option>
+                        <option value="Do">Do Ideas</option>
+                        <option value="Check">Check Ideas</option>
+                        <option value="Act">Act Ideas</option>
+                        <option value="Park">Parked Ideas</option>
+                        <option value="Abandon">Abandoned Ideas</option>
+                        <option value="Subscribed">Subscribed</option>
+                        <option value="TeamMember">By Team Member</option>
+                        <option value="TeamName">By Team Name</option>
+                    </select>
                 </div>
-                <div><span class="text-muted">Title: </span>@Html.DisplayFor(modelItem => item.Title)</div>
-                <div><span class="text-muted">Solution: </span>@Html.DisplayFor(modelItem => item.Solution)</div>
-                <div class="row">
-                    <div class="col-sm-1"><span class="text-muted">Status: </span></div>
-                    <div class="col-sm-5">
-                        <div class="progress" style="height: 15px">
-                            @if (item.Status == "Pending")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: orangered; width:20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Pending</div>
-                            }
-                            else if (item.Status == "Plan")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white ; background-color: orange; width:40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Plan</div>
-                            }
-                            else if (item.Status == "Do")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: gold; width:60%" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Do</div>
-                            }
-                            else if (item.Status == "Check")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: mediumseagreen; width:80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Check</div>
-                            }
-                            else if (item.Status == "Act")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: dodgerblue; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Act</div>
-                            }
-                            else if (item.Status == "Park")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: lightgray; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Park</div>
-                            }
-                            else if (item.Status == "Abandon")
-                            {
-                                <div class="progress-bar progress-bar-striped" style="color: white; background-color: darkgrey; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Abandon</div>
-                            }
+                <input type="text" name="SearchString" class="form-control" placeholder="Search">
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-primary btn-sm" style="background-color: MediumSeaGreen; border-color: darkgrey" value="Search" />
+                </div>
+            </div>
+        </p>
+    </form>
+    @foreach (var item in Model.Reverse())
+    {
+        <p></p>
+        <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
+            <div class="card-body">
+
+                <div class="media">
+                    <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = item.Idea.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
+                    <div class="media-body">
+                        <h5 class="mt-0">@item.Idea.Name</h5>
+                        <div><span class="text-muted">Title: </span>@item.Idea.Title</div>
+                        <div><span class="text-muted">Problem: </span>@item.Idea.Problem</div>
+                        <div><span class="text-muted">Solution: </span>@item.Idea.Solution</div>
+                        <div class="container" style="padding: 0px; margin:0px; max-width: initial;">
+                            <div class="row" style="margin:0px">
+                                <div class="col-auto mr-auto col-md-7" style="padding: 0px;">
+                                    <div class="progress" style="height: 15px">
+                                        @if (item.Idea.Status == "Pending")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: orangered; width:20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">Pending</div>
+                                        }
+                                        else if (item.Idea.Status == "Plan")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white ; background-color: orange; width:40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">Plan</div>
+                                        }
+                                        else if (item.Idea.Status == "Do")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: gold; width:60%" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">Do</div>
+                                        }
+                                        else if (item.Idea.Status == "Check")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: mediumseagreen; width:80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">Check</div>
+                                        }
+                                        else if (item.Idea.Status == "Act")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: dodgerblue; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Act</div>
+                                        }
+                                        else if (item.Idea.Status == "Park")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: lightgray; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Park</div>
+                                        }
+                                        else if (item.Idea.Status == "Abandon")
+                                        {
+                                            <div class="progress-bar progress-bar-striped" style="color: white; background-color: darkgrey; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Abandon</div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="col-auto">
+                                    <p>
+                                        @if (item.Idea.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Idea.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.Idea.ID">Edit |</a>
+                                            <a asp-action="Details" asp-route-id="@item.Idea.ID">Details|</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Idea.ID">Delete</a>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Details" asp-route-id="@item.Idea.ID">Details</a>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                            </div>
+                            <div class="col-sm-1">
+                                <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.UserLike, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "LikeCount", item.LikeCount } })</span>
+                            </div>
+                            <div class="col-sm-1">
+                                <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", item.Subscription, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                            </div>
+                        </div>
+                        <div>
+                            @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", item.Comments)
+                        </div>
+                        <div>
                         </div>
                     </div>
-                    <div class="col-sm-5"></div>
-                    <div class="col-sm-1">
-                        <p>
-                            @if (item.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
-                            {
-                                <a asp-action="Edit" asp-route-id="@item.ID">Edit |</a>
-                                <a asp-action="Details" asp-route-id="@item.ID">Details|</a>
-                                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-                            }
-                            else
-                            {
-                                <a asp-action="Details" asp-route-id="@item.ID">Details</a>
-                            }
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <img src="~/images/svg/chat.svg" alt="ASP.NET" data-toggle="popover" data-container="body" data-placement="right" data-html="true" id="comment" />
-                    <script>$("[data-toggle=popover]").each(function(i, obj) {
-                            $(this).popover({
-                                  html: true,
-                                  content: function() {
-                                  var id = $(this).attr('id')
-                                  return $('#popover-content-' + id).html();
-                              }
-                            });
-                        });</script>
-                    <div id="popover-content-comment" hidden>
-                        <form asp-controller="Ideas" asp-action="Index" method="get">
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                            <button type="submit" class="badge badge-pill badge-primary">submit</button>
-                        </form>
-                    </div>
-                    <img src="~/images/svg/thumb-up.svg" alt="ASP.NET" />
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+</body>

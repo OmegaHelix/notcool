@@ -1,0 +1,39 @@
+﻿@model eIdeas.Models.Like
+@using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
+@inject SignInManager<eIdeasUser> SignInManager
+@inject UserManager<eIdeasUser> UserManager
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-sm-1">
+            <form asp-controller="Like" asp-action="LikeIdea" name="Like-@Model.IdeaID">
+                <input type="hidden" name="LikeID" value="@Model.LikeID" />
+                <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
+                <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['Like-@Model.IdeaID'].submit();" />
+            </form>
+        </div>
+        <div class="col-sm-1">
+
+            @ViewData["LikeCount"]
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-sm-1">
+            <form asp-controller="Like" asp-action="LikeIdea" name="Like-@ViewData["id"]">
+                <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
+                <input type="hidden" name="Liked" value="false" />
+                <img id="btnJson" value="Like" src="~/images/svg/thumb-up.svg" alt="ASP.NET" onclick="document.forms['Like-@ViewData["id"]'].submit();" />
+            </form>
+        </div>
+        <div class="col-sm-1">
+            @ViewData["LikeCount"]
+        </div>
+    </div>
+}
+

@@ -1,0 +1,19 @@
+﻿@model IEnumerable<eIdeas.Models.Comment>
+@using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
+@inject UserManager<eIdeasUser> UserManager
+
+@foreach (var comment in Model)
+{
+    <!--<hr />-->
+    <p></p>
+    <div class="card" style="border-color: darkgrey">
+        <div class="media">
+            <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = comment.UserID })" alt="Generic placeholder image" style="height: 35px; width: 35px;">
+            <div class="media-body">
+                <h5 class="mt-0">@comment.UserName</h5>
+                @comment.UserComment
+            </div>
+        </div>
+    </div>
+}
