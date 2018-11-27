@@ -41,11 +41,15 @@ namespace eIdeas.Controllers
 
             if (!String.IsNullOrEmpty(searchFilter))
             {
-                if(searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
+                if (searchFilter.Equals("Pending") || searchFilter.Equals("Plan") || searchFilter.Equals("Do") ||
                     searchFilter.Equals("Check") || searchFilter.Equals("Act") || searchFilter.Equals("Park") ||
                     searchFilter.Equals("Abandon"))
                 {
                     ideas = ideas.Where(i => i.Status.Contains(searchFilter));
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        ideas = ideas.Where(i => i.Title.Contains(searchString));
+                    }
                 }
                 if (searchFilter.Equals("ID"))
                 {
@@ -54,21 +58,24 @@ namespace eIdeas.Controllers
                 if (searchFilter.Equals("Subscribed"))
                 {
                     //TODO Filter by subscriptions
+                    
                 }
                 if (searchFilter.Equals("TeamMember"))
                 {
-                    //TODO Filter by Team member
+                    ideas = ideas.Where(i => i.Name.Contains(searchString) && i.Team.Equals(user.Team));
                 }
                 if (searchFilter.Equals("TeamName"))
                 {
-                    //TODO Filter by Team Name
+                    ideas = ideas.Where(i => i.Team.Contains(searchString));
                 }
 
             }
-
-            if (!String.IsNullOrEmpty(searchString) && searchFilter != "ID")
+            else
             {
-                ideas = ideas.Where(i => i.Title.Contains(searchString));
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    ideas = ideas.Where(i => i.Title.Contains(searchString));
+                }
             }
 
             List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
@@ -184,6 +191,7 @@ namespace eIdeas.Controllers
             idea.UserID = user.Id;
             idea.Name = user.Firstname + " " + user.Lastname;
             idea.Team = user.Team;
+            idea.UploadDate = DateTime.Now;
             if (ModelState.IsValid)
             {
                 try
