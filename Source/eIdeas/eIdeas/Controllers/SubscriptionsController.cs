@@ -28,13 +28,16 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             subscribe.UserID = user.Id;
+            string message = "";
             if (subscribe.Subscribed == true)
             {
                 subscribe.Subscribed = false;
+                message = user.Firstname + " " + user.Lastname + " has Unsubscribed to the idea: " + _context.Idea.Where(i => i.ID == subscribe.IdeaID).FirstOrDefault().Title;
             }
             else if (subscribe.Subscribed == false)
             {
                 subscribe.Subscribed = true;
+                message = user.Firstname + " " + user.Lastname + " has subscribed the idea: " + _context.Idea.Where(i => i.ID == subscribe.IdeaID).FirstOrDefault().Title;
             }
             if (ModelState.IsValid)
             {
@@ -62,6 +65,16 @@ namespace eIdeas.Controllers
                         }
                     }
                 }
+                Notification newNotification = new Notification
+                {
+                    IdeaID = subscribe.IdeaID,
+                    UserID = subscribe.UserID,
+                    Username = user.Firstname + " " + user.Lastname,
+                    NotificationMessage = message,
+                    NotificationDate = System.DateTime.Now
+                };
+                _context.Notifcation.Add(newNotification);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index), "Ideas");
             }
             return RedirectToAction(nameof(HomeController.Error), "Error");

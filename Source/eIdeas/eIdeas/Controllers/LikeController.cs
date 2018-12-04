@@ -28,13 +28,16 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             like.UserID = user.Id;
+            string message = "";
             if (like.Liked == true)
             {
                 like.Liked = false;
+                message = user.Firstname + " " + user.Lastname + " has unliked the idea: " + _context.Idea.Where(i => i.ID == like.IdeaID).FirstOrDefault().Title;
             }
             else if(like.Liked == false)
             {
                 like.Liked = true;
+                message = user.Firstname + " " + user.Lastname + " has liked the idea: " + _context.Idea.Where(i => i.ID == like.IdeaID).FirstOrDefault().Title;
             }
             if (ModelState.IsValid)
             {
@@ -62,6 +65,16 @@ namespace eIdeas.Controllers
                         }
                     }
                 }
+                Notification newNotification = new Notification
+                {
+                    IdeaID = like.IdeaID,
+                    UserID = like.UserID,
+                    Username = user.Firstname + " " + user.Lastname,
+                    NotificationMessage = message,
+                    NotificationDate = System.DateTime.Now
+                };
+                _context.Notifcation.Add(newNotification);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index), "Ideas");
             }
             return RedirectToAction(nameof(HomeController.Error), "Error");

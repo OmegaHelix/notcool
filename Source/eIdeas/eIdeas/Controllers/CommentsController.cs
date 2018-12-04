@@ -36,9 +36,20 @@ namespace eIdeas.Controllers
             var user = await _userManager.GetUserAsync(User);
             comment.UserID = user.Id;
             comment.UserName = user.Firstname + " " + user.Lastname;
+            string message = user.Firstname + " " + user.Lastname + " has commented on idea: " + _context.Idea.Where(i => i.ID == comment.IdeaID).FirstOrDefault().Title;
             if (ModelState.IsValid)
             {
                 _context.Add(comment);
+                await _context.SaveChangesAsync();
+                Notification newNotification = new Notification
+                {
+                    IdeaID = comment.IdeaID,
+                    UserID = comment.UserID,
+                    Username = user.Firstname + " " + user.Lastname,
+                    NotificationMessage = message,
+                    NotificationDate = System.DateTime.Now
+                };
+                _context.Notifcation.Add(newNotification);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index),"Ideas");
             }
