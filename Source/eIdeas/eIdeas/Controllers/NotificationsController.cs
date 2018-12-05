@@ -29,7 +29,7 @@ namespace eIdeas.Controllers
             var user = await _userManager.GetUserAsync(User);
             List<Models.Notification> newlist = new List<Models.Notification>();
 
-            subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id));
+            subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id) && i.Subscribed == true);
             foreach(var subscription in subscriptions)
             {
                 foreach(var notification in notifications)
