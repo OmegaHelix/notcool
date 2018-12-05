@@ -70,3 +70,9 @@ body {
 #ideasPage {
     background-color: WhiteSmoke;
 }
+
+.notification {
+    top: -10px;
+    left: -12px;
+    position: relative;
+}
