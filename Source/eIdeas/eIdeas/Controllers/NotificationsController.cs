@@ -27,7 +27,7 @@ namespace eIdeas.Controllers
             var notifications = from i in _context.Notifcation select i;
             var subscriptions = from i in _context.Subscribe select i;
             var user = await _userManager.GetUserAsync(User);
-            List<Models.Notification> newlist = new List<Models.Notification>();
+            List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id) && i.Subscribed == true);
             foreach(var subscription in subscriptions)
@@ -36,11 +36,12 @@ namespace eIdeas.Controllers
                 {
                     if(subscription.IdeaID.Equals(notification.IdeaID))
                     {
-                        newlist.Add(notification);
+                        userNotifications.Add(notification);
                     }
                 }
             }
-            return View(newlist);
+            IEnumerable<Models.Notification> orderedNotifications = userNotifications.OrderBy(item => item.NotificationDate);
+            return View(orderedNotifications);
         }
 
 
