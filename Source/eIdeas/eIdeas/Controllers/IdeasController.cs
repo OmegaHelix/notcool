@@ -57,8 +57,23 @@ namespace eIdeas.Controllers
                 }
                 if (searchFilter.Equals("Subscribed"))
                 {
-                    //TODO Filter by subscriptions
-                    
+                    List<Idea> subscribedIdeas = new List<Idea>();
+                    subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id) && i.Subscribed == true);
+                    foreach (var subscription in subscriptions)
+                    {
+                        foreach (var idea in ideas)
+                        {
+                            if (subscription.IdeaID.Equals(idea.ID))
+                            {
+                                subscribedIdeas.Add(idea);
+                            }
+                        }
+                    }
+                    ideas = subscribedIdeas.AsQueryable<Idea>();
+                    if (!String.IsNullOrEmpty(searchString))
+                    {
+                        ideas = ideas.Where(i => i.Title.Contains(searchString));
+                    }
                 }
                 if (searchFilter.Equals("TeamMember"))
                 {
@@ -77,11 +92,9 @@ namespace eIdeas.Controllers
                     ideas = ideas.Where(i => i.Title.Contains(searchString));
                 }
             }
-
             List<IdeaViewModel> ideasModel = new List<IdeaViewModel>();
             Like userLike;
             Subscribe userSub;
-
             foreach(var item in ideas)
             {
                 var ideaComments = comments.Where(i => i.IdeaID.Equals(item.ID));
