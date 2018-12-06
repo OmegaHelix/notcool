@@ -4,8 +4,37 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="display-4">Details</h1>
+<body id="detailspage">
+    <h1 class="display-4">Details</h1>
 
+    <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
+        <div class="card-body">
+            <div>
+                <div><span>@Html.DisplayNameFor(model => model.Name)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Name)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.Title)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Title)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.Problem)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Problem)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.Solution)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Solution)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.Status)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Status)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.UploadDate)</span></div>
+                <div><span>@Html.DisplayFor(model => model.UploadDate)</span></div>
+                <div><span>@Html.DisplayNameFor(model => model.Team)</span></div>
+                <div><span>@Html.DisplayFor(model => model.Team)</span></div>
+                <div>
+                    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+                    <a asp-action="Index">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<!--
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -53,7 +82,5 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+-->
+
