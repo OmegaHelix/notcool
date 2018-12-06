@@ -1,0 +1,12 @@
+﻿@model IEnumerable<eIdeas.Models.Comment>
+@using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
+@inject SignInManager<eIdeasUser> SignInManager
+@inject UserManager<eIdeasUser> UserManager
+
+
+
+<span>
+    <img src="~/images/svg/comment-solid.svg" alt="ASP.NET" data-toggle="collapse" data-container="body"
+         data-target="#collapse-content-@ViewData["id"]" data-placement="right" data-html="true" id="@ViewData["id"]" />
+</span>
