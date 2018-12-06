@@ -89,6 +89,8 @@ namespace eIdeas
             app.UseSignalR(routes =>
             {
                 routes.MapHub<SubscribeHub>("/subscribeHub");
+                routes.MapHub<LikeHub>("/likeHub");
+                routes.MapHub<CommentHub>("/commentHub");
             });
 
             app.UseMvc(routes =>
