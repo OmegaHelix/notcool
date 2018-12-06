@@ -1,0 +1,21 @@
+﻿@model IEnumerable<eIdeas.Models.Comment>
+@using Microsoft.AspNetCore.Identity
+@using eIdeas.Areas.Identity.Data
+@inject SignInManager<eIdeasUser> SignInManager
+@inject UserManager<eIdeasUser> UserManager
+
+
+<div class="collapse col"  id="collapse-content-@ViewData["id"]">
+    <div class="card card-body">
+        <form asp-controller="Comments" asp-action="CreateComment">
+            <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
+            <div class="form-group">
+                <label name="UserComment" class="control-label"></label>
+                <textarea name="UserComment" class="form-control"></textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Comment" class="btn btn-primary btn-sm" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -51,7 +51,7 @@ namespace eIdeas.Controllers
             var user = await _userManager.GetUserAsync(User);
             foreach(var notification in notifications)
             {
-                if(notification.TargetUserID.Equals(user.Id))
+                if(notification.TargetUserID != null && notification.TargetUserID.Equals(user.Id))
                 {
                     _context.Notifcation.Remove(notification);
                 }
