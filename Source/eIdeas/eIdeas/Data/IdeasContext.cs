@@ -9,6 +9,10 @@ namespace eIdeas.Data
 {
     public class IdeasContext : DbContext
     {
+        public IdeasContext()
+        {
+        }
+
         public IdeasContext (DbContextOptions<IdeasContext> options)
             : base(options)
         {

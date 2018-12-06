@@ -11,7 +11,13 @@
                 <input type="hidden" name="LikeID" value="@Model.LikeID" />
                 <input type="hidden" name="Liked" value="@Model.Liked.ToString()" />
                 <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-                <i id="btnJson" value="Like" onclick="document.forms['Like-@ViewData["id"]'].submit();" class="fas fa-thumbs-up fa-lg"></i>           
+                @if (Model.Liked == false){
+                    <i id="btnJson" value="Like" onclick="document.forms['Like-@ViewData["id"]'].submit();" class="fas fa-thumbs-up fa-lg"></i>
+                }
+                else
+                {
+                    <i id="btnJson" value="Like" onclick="document.forms['Like-@ViewData["id"]'].submit();" class="fas fa-thumbs-down fa-lg"></i>
+                }
             </form>
         </div>
         <div class="col-sm-1">
@@ -26,7 +32,8 @@ else
         <form asp-controller="Like" asp-action="LikeIdea" name="Like-@ViewData["id"]">
             <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
             <input type="hidden" name="Liked" value="false" />
-            <i id="btnJson" value="Like" onclick="document.forms['Like-@ViewData["id"]'].submit();" class="fas fa-thumbs-up fa-lg" ></i>
+            <i id="btnJson" value="Like" onclick="document.forms['Like-@ViewData["id"]'].submit();" class="fas fa-thumbs-up fa-lg"></i>
+
         </form>
     </div>
     <div class="col-sm-1">
