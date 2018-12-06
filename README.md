@@ -1,6 +1,6 @@
 <p>
-  <img align="left" src="./Documentation/uofr_logo.jpg" alt="U of R logo" height="90px"/>
-  <img align="right" src="./Documentation/ehealth_logo.png" alt="eHealth logo" height="90px"/>
+  <img align="left" src="./Documentation/Images/uofr_logo.jpg" alt="U of R logo" height="90px"/>
+  <img align="right" src="./Documentation/Images/ehealth_logo.png" alt="eHealth logo" height="90px"/>
 </p>
 
 <br/><br/><br/><br/>
