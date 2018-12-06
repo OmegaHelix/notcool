@@ -22,7 +22,7 @@
             <div class="media">
                 <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = item.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
                 <div class="media-body">
-                    <div>@item.NotificationMessage</div>
+                    <div>@item.NotificationMessage by @item.Username</div>
                     <div>@item.NotificationDate</div>
                 </div>
             </div>

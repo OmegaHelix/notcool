@@ -37,7 +37,7 @@ namespace eIdeas.Controllers
             else if (subscribe.Subscribed == false)
             {
                 subscribe.Subscribed = true;
-                message = user.Firstname + " " + user.Lastname + " has subscribed the idea: " + _context.Idea.Where(i => i.ID == subscribe.IdeaID).FirstOrDefault().Title;
+                message = user.Firstname + " " + user.Lastname + " has Subscribed to the idea: " + _context.Idea.Where(i => i.ID == subscribe.IdeaID).FirstOrDefault().Title;
             }
             if (ModelState.IsValid)
             {

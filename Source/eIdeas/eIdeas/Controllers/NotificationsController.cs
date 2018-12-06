@@ -44,6 +44,26 @@ namespace eIdeas.Controllers
             return View(orderedNotifications);
         }
 
+        public int NotificationsCount()
+        {
+            var notifications = from i in _context.Notifcation select i;
+            var subscriptions = from i in _context.Subscribe select i;
+            var user = _userManager.GetUserId(User);
+            List<Models.Notification> userNotifications = new List<Models.Notification>();
+
+            subscriptions = subscriptions.Where(i => i.UserID.Equals(user) && i.Subscribed == true);
+            foreach (var subscription in subscriptions)
+            {
+                foreach (var notification in notifications)
+                {
+                    if (subscription.IdeaID.Equals(notification.IdeaID))
+                    {
+                        userNotifications.Add(notification);
+                    }
+                }
+            }
+            return userNotifications.Count();
+        }
 
     }
 }
