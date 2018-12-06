@@ -13,6 +13,7 @@ Additions in ENSE496AB:
 * [Milestone 2](./Milestone%202)
 * [Milestone 3](./Milestone%203)
 * [Milestone 4](./Milestone%204)
+* [Milestone 5](./Milestone%205)
 * [Mockups](./Mockups)
 * [Usability Evaluation](./Usability%20Evaluation/Fall%20Term%202018/)
 
