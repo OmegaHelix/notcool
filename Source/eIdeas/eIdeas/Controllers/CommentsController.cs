@@ -35,7 +35,7 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var subscriptions = from i in _context.Subscribe select i;
-            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(comment.IdeaID));
+            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(comment.IdeaID) && i.Subscribed == true);
             comment.UserID = user.Id;
             comment.UserName = user.Firstname + " " + user.Lastname;
             string message = user.Firstname + " " + user.Lastname + " has commented on idea: " + _context.Idea.Where(i => i.ID == comment.IdeaID).FirstOrDefault().Title;

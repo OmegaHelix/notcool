@@ -45,6 +45,21 @@ namespace eIdeas.Controllers
             return View(orderedNotifications);
         }
 
+        public async Task<IActionResult> ClearNotifications()
+        {
+            var notifications = from i in _context.Notifcation select i;
+            var user = await _userManager.GetUserAsync(User);
+            foreach(var notification in notifications)
+            {
+                if(notification.TargetUserID.Equals(user.Id))
+                {
+                    _context.Notifcation.Remove(notification);
+                }
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Notifications));
+        }
+
         public int NotificationsCount()
         {
             var notifications = from i in _context.Notifcation select i;

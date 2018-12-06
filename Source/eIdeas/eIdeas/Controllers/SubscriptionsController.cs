@@ -28,7 +28,7 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var subscriptions = from i in _context.Subscribe select i;
-            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(subscribe.IdeaID));
+            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(subscribe.IdeaID) && i.Subscribed == true);
             subscribe.UserID = user.Id;
             string message = "";
             if (subscribe.Subscribed == true)
