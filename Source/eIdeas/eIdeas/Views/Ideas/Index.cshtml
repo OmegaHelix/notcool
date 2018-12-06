@@ -101,13 +101,13 @@
                                     <p>
                                         @if (item.Idea.Name == UserManager.GetUserAsync(User).Result.Firstname + " " + UserManager.GetUserAsync(User).Result.Lastname || UserManager.GetUserAsync(User).Result.Team == item.Idea.Team && UserManager.GetUserAsync(User).Result.Role.Contains("Manager"))
                                         {
-                                            <a asp-action="Edit" asp-route-id="@item.Idea.ID">Edit |</a>
-                                            <a asp-action="Details" asp-route-id="@item.Idea.ID">Details|</a>
-                                            <a asp-action="Delete" asp-route-id="@item.Idea.ID">Delete</a>
+                                            <a class="btn btn-primary btn-sm" asp-action="Edit" asp-route-id="@item.Idea.ID">Edit</a>
+                                            <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Idea.ID">Details</a>
+                                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Idea.ID">Delete</a>
                                         }
                                         else
                                         {
-                                            <a asp-action="Details" asp-route-id="@item.Idea.ID">Details</a>
+                                            <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.Idea.ID">Details</a>
                                         }
                                     </p>
                                 </div>
