@@ -13,6 +13,12 @@ namespace eIdeas.Hubs
         private readonly UserManager<eIdeasUser> _userManager;
         private readonly SignInManager<eIdeasUser> _signInManager;
 
+        public LikeHub(eIdeasUsersContext context, UserManager<eIdeasUser> userManager, SignInManager<eIdeasUser> signInManager)
+        {
+            _context = context;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
 
         public async Task SendUpdateLike(string userId, string ideaId)
         {
