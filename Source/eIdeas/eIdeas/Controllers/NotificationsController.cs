@@ -68,6 +68,7 @@ namespace eIdeas.Controllers
             List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user) && i.Subscribed == true);
+            notifications = notifications.Where(i => i.TargetUserID.Equals(user));
             foreach (var subscription in subscriptions)
             {
                 foreach (var notification in notifications)
@@ -79,6 +80,15 @@ namespace eIdeas.Controllers
                 }
             }
             return userNotifications.Count();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var notification = await _context.Notifcation.FindAsync(id);
+            _context.Notifcation.Remove(notification);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Notifications));
         }
     }
 }
