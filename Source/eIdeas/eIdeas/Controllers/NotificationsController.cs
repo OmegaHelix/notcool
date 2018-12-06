@@ -30,6 +30,7 @@ namespace eIdeas.Controllers
             List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id) && i.Subscribed == true);
+            notifications = notifications.Where(i => i.TargetUserID.Equals(user.Id));
             foreach(var subscription in subscriptions)
             {
                 foreach(var notification in notifications)

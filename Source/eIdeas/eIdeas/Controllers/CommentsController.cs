@@ -34,6 +34,8 @@ namespace eIdeas.Controllers
         public async Task<IActionResult> CreateComment([Bind("CommentID,IdeaID,UserID,UserComment")] Comment comment)
         {
             var user = await _userManager.GetUserAsync(User);
+            var subscriptions = from i in _context.Subscribe select i;
+            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(comment.IdeaID));
             comment.UserID = user.Id;
             comment.UserName = user.Firstname + " " + user.Lastname;
             string message = user.Firstname + " " + user.Lastname + " has commented on idea: " + _context.Idea.Where(i => i.ID == comment.IdeaID).FirstOrDefault().Title;
@@ -41,15 +43,20 @@ namespace eIdeas.Controllers
             {
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                Notification newNotification = new Notification
+                foreach (var subscription in subscriptions)
                 {
-                    IdeaID = comment.IdeaID,
-                    UserID = comment.UserID,
-                    Username = user.Firstname + " " + user.Lastname,
-                    NotificationMessage = message,
-                    NotificationDate = System.DateTime.Now
-                };
-                _context.Notifcation.Add(newNotification);
+                    Notification newNotification = new Notification
+                    {
+                        IdeaID = comment.IdeaID,
+                        UserID = comment.UserID,
+                        TargetUserID = subscription.UserID,
+                        Username = user.Firstname + " " + user.Lastname,
+                        NotificationMessage = message,
+                        NotificationDate = System.DateTime.Now
+                    };
+                    _context.Notifcation.Add(newNotification);
+                    
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index),"Ideas");
             }

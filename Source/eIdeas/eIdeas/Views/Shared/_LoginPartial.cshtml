@@ -12,17 +12,13 @@
         <li class="nav-item">
             <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserAsync(User).Result.Firstname! </a>
         </li>
-        <li>
-            <a class="nav-link" asp-area="" asp-controller="Notifications" asp-action="Notifications">Notifications </a>
-        </li>
         <li class="nav-item">
-            <a style="fill: rgba(255, 255, 255, 0.5);" class="nav-link" href="#">
+            <a style="fill: rgba(255, 255, 255, 0.5);" class="nav-link" asp-controller="Notifications" asp-action="Notifications">
                 <i style="font-size: 20px;" class="far fa-bell">
                 </i>  
                 <span style="top: -10px; left: -12px; position: relative;">
                 <span class="badge badge-pill badge-danger">2</span>
                 </span>
-
             </a>
         </li>
         <li class="nav-item">

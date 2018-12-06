@@ -10,6 +10,7 @@ namespace eIdeas.Models
         public int NotificationID {get; set;}
         public int IdeaID { get; set; }
         public string UserID { get; set; }
+        public string TargetUserID { get; set; }
         public string Username { get; set; }
         public string NotificationMessage { get; set; }
         public DateTime NotificationDate { get; set; }

@@ -27,6 +27,8 @@ namespace eIdeas.Controllers
         public async Task<IActionResult> SubscribeToIdea([Bind("SubscriptionID,UserID,Subscribed,IdeaID")] Subscribe subscribe)
         {
             var user = await _userManager.GetUserAsync(User);
+            var subscriptions = from i in _context.Subscribe select i;
+            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(subscribe.IdeaID));
             subscribe.UserID = user.Id;
             string message = "";
             if (subscribe.Subscribed == true)
@@ -65,15 +67,20 @@ namespace eIdeas.Controllers
                         }
                     }
                 }
-                Notification newNotification = new Notification
+                foreach(var subscription in subscriptions)
                 {
-                    IdeaID = subscribe.IdeaID,
-                    UserID = subscribe.UserID,
-                    Username = user.Firstname + " " + user.Lastname,
-                    NotificationMessage = message,
-                    NotificationDate = System.DateTime.Now
-                };
-                _context.Notifcation.Add(newNotification);
+                    Notification newNotification = new Notification
+                    {
+                        IdeaID = subscribe.IdeaID,
+                        UserID = subscribe.UserID,
+                        TargetUserID = subscription.UserID,
+                        Username = user.Firstname + " " + user.Lastname,
+                        NotificationMessage = message,
+                        NotificationDate = System.DateTime.Now
+                    };
+                    _context.Notifcation.Add(newNotification);
+                    
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index), "Ideas");
             }
