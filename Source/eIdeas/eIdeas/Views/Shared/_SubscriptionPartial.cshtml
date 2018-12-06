@@ -3,29 +3,30 @@
 @using eIdeas.Areas.Identity.Data
 @inject SignInManager<eIdeasUser> SignInManager
 @inject UserManager<eIdeasUser> UserManager
-
 @if (Model != null)
 {
-<form asp-controller="Subscriptions" asp-action="SubscribeToIdea" name="Subscribe-@Model.IdeaID">
-    <input type="hidden" name="SubscriptionID" value="@Model.SubscriptionID" />
-    <input type="hidden" name="Subscribed" value="@Model.Subscribed.ToString()" />
-    <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
-    @if (Model.Subscribed == true)
-    {
-        <input type="submit" value="Unsubscribe" class="btn btn-primary btn-sm" />
-    }
-    else
-    {
-        <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
-    }
-</form>
+    <form asp-controller="Subscriptions" asp-action="SubscribeToIdea" name="Subscribe-@Model.IdeaID">
+        <input type="hidden" name="SubscriptionID" value="@Model.SubscriptionID" />
+        <input type="hidden" name="Subscribed" value="@Model.Subscribed.ToString()" />
+        <input type="hidden" name="IdeaID" value="@Model.IdeaID" />
+        @if (Model.Subscribed == true)
+        {
+            <input type="submit" value="Unsubscribe" class="btn btn-primary btn-sm" />
+        }
+        else
+        {
+            <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
+        }
+    </form>
 }
 else
 {
-
     <form asp-controller="Subscriptions" asp-action="SubscribeToIdea" name="Subscribe-@ViewData["id"]">
         <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
         <input type="hidden" name="Subscribed" value="false" />
-        <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" />
+        <input type="submit" value="Subscribe" class="btn btn-primary btn-sm" id="subscribe" name="@ViewData["id"]" />
     </form>
 }
+
+    <button type="submit" value="Subscribe" class="btn btn-primary btn-sm subscribe" name="@ViewData["id"]" />
+<div id="subcribeBox"> </div>

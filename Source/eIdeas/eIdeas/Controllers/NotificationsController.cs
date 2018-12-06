@@ -30,6 +30,7 @@ namespace eIdeas.Controllers
             List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user.Id) && i.Subscribed == true);
+            notifications = notifications.Where(i => i.TargetUserID.Equals(user.Id));
             foreach(var subscription in subscriptions)
             {
                 foreach(var notification in notifications)
@@ -44,6 +45,21 @@ namespace eIdeas.Controllers
             return View(orderedNotifications);
         }
 
+        public async Task<IActionResult> ClearNotifications()
+        {
+            var notifications = from i in _context.Notifcation select i;
+            var user = await _userManager.GetUserAsync(User);
+            foreach(var notification in notifications)
+            {
+                if(notification.TargetUserID.Equals(user.Id))
+                {
+                    _context.Notifcation.Remove(notification);
+                }
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Notifications));
+        }
+
         public int NotificationsCount()
         {
             var notifications = from i in _context.Notifcation select i;
@@ -52,6 +68,7 @@ namespace eIdeas.Controllers
             List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user) && i.Subscribed == true);
+            notifications = notifications.Where(i => i.TargetUserID.Equals(user));
             foreach (var subscription in subscriptions)
             {
                 foreach (var notification in notifications)
@@ -64,6 +81,14 @@ namespace eIdeas.Controllers
             }
             return userNotifications.Count();
         }
-
+        
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var notification = await _context.Notifcation.FindAsync(id);
+            _context.Notifcation.Remove(notification);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Notifications));
+        }
     }
 }

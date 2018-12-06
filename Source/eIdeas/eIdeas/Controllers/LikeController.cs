@@ -27,6 +27,11 @@ namespace eIdeas.Controllers
         public async Task<IActionResult> LikeIdea([Bind("LikeID,UserID,Liked,IdeaID")] Like like)
         {
             var user = await _userManager.GetUserAsync(User);
+            var subscriptions = from i in _context.Subscribe select i;
+            var idea = from i in _context.Idea select i;
+            Idea userIdea;
+            userIdea = await idea.Where(i => i.ID.Equals(like.IdeaID)).FirstOrDefaultAsync();
+            subscriptions = subscriptions.Where(i => i.IdeaID.Equals(like.IdeaID) && i.Subscribed == true);
             like.UserID = user.Id;
             string message = "";
             if (like.Liked == true)
@@ -65,15 +70,21 @@ namespace eIdeas.Controllers
                         }
                     }
                 }
-                Notification newNotification = new Notification
+                foreach (var subscription in subscriptions)
                 {
-                    IdeaID = like.IdeaID,
-                    UserID = like.UserID,
-                    Username = user.Firstname + " " + user.Lastname,
-                    NotificationMessage = message,
-                    NotificationDate = System.DateTime.Now
-                };
-                _context.Notifcation.Add(newNotification);
+                    Notification newNotification = new Notification
+                    {
+                        IdeaID = like.IdeaID,
+                        UserID = like.UserID,
+                        TargetUserID = subscription.UserID,
+                        Username = userIdea.Name,
+                        NotificationMessage = message,
+                        Checked = false,
+                        NotificationDate = System.DateTime.Now
+                    };
+                    _context.Notifcation.Add(newNotification);
+                    
+                }
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(IdeasController.Index), "Ideas");
             }

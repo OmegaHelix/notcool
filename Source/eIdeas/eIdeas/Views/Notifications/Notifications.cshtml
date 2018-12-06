@@ -7,26 +7,38 @@
     a.custom-card {
         text-decoration: none;
     }
+
         a.custom-card:hover {
             color: inherit;
             text-decoration: none;
         }
 </style>
 <h2>Notifications</h2>
+<form asp-controller="Notifications" asp-action="ClearNotifications" method="post">
+    <div class="input-group-append">
+        <input type="submit" class="btn btn-primary btn-sm" style="background-color: MediumSeaGreen; border-color: darkgrey" value="Clear Notifications" />
+    </div>
+</form>
+
 
 @foreach (var item in Model.Reverse())
 {
-<a class="custom-card" asp-controller="Ideas" asp-action="Details" asp-route-id="@item.IdeaID">
-    <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
-        <div class="card-body">
-            <div class="media">
-                <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = item.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
-                <div class="media-body">
-                    <div>@item.NotificationMessage by @item.Username</div>
-                    <div>@item.NotificationDate</div>
+    <a class="custom-card" asp-controller="Ideas" asp-action="Details" asp-route-id="@item.IdeaID">
+        <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
+            <div class="card-body">
+                <div class="media">
+                    <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = item.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
+                    <div class="media-body">
+                        <div>@item.NotificationMessage by @item.Username</div>
+                        <div>@item.NotificationDate</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</a>
+    </a>
+    <form asp-action="Delete">
+        <input type="hidden" name="id" value="@item.NotificationID" />
+        <input type="submit" value="Delete" class="btn btn-primary" />
+    </form>
+
 }

@@ -90,32 +90,32 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"
                 asp-fallback-src="~/lib/bootstrap4/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
+                asp-fallback-test="window.jQuery"></script>
         <!-- Bootstrap 4 + Popper Bundle using CDN, fallback to Project Copy -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
                 integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"
                 asp-fallback-src="~/lib/bootstrap4/jsbundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"></script>
         <!-- Site JavaScript -->
         <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/subscribe.js"></script>
     </environment>
 
     <!-- Files to use in the Non Dev environment -->
     <environment exclude="Development">
         <!-- Jquery slim version 3.3.1 using web distribution, fallback to Project Copy-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
                 asp-fallback-src="~/lib/bootstrap4/jquery.min.js"
-                asp-fallback-test="window.jQuery">
-        </script>
+                asp-fallback-test="window.jQuery"></script>
         <!-- Bootstrap 4 + Popper Bundle using CDN, fallback to Project Copy -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"
                 asp-fallback-src="~/lib/bootstrap4/jsbundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
-        </script>
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"></script>
         <!-- Site JavaScript -->
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/subscribe.js"></script>
     </environment>
 
     @RenderSection("Scripts", required: false)

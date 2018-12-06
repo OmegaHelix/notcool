@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eIdeas.Data;
 
 namespace eIdeas.Migrations
 {
     [DbContext(typeof(IdeasContext))]
-    partial class IdeasContextModelSnapshot : ModelSnapshot
+    [Migration("20181206024020_NotificationsChange")]
+    partial class NotificationsChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,8 +91,6 @@ namespace eIdeas.Migrations
                     b.Property<int>("NotificationID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<bool>("Checked");
 
                     b.Property<int>("IdeaID");
 
