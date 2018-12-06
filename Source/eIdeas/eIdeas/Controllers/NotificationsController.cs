@@ -80,6 +80,5 @@ namespace eIdeas.Controllers
             }
             return userNotifications.Count();
         }
-
     }
 }

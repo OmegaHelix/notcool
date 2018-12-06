@@ -13,6 +13,7 @@ namespace eIdeas.Models
         public string TargetUserID { get; set; }
         public string Username { get; set; }
         public string NotificationMessage { get; set; }
+        public bool Checked { get; set; }
         public DateTime NotificationDate { get; set; }
     }
 }

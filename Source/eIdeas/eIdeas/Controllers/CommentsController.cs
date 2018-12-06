@@ -35,6 +35,9 @@ namespace eIdeas.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
             var subscriptions = from i in _context.Subscribe select i;
+            var idea = from i in _context.Idea select i;
+            Idea userIdea;
+            userIdea = await idea.Where(i => i.ID.Equals(comment.IdeaID)).FirstOrDefaultAsync();
             subscriptions = subscriptions.Where(i => i.IdeaID.Equals(comment.IdeaID) && i.Subscribed == true);
             comment.UserID = user.Id;
             comment.UserName = user.Firstname + " " + user.Lastname;
@@ -50,8 +53,9 @@ namespace eIdeas.Controllers
                         IdeaID = comment.IdeaID,
                         UserID = comment.UserID,
                         TargetUserID = subscription.UserID,
-                        Username = user.Firstname + " " + user.Lastname,
+                        Username = userIdea.Name,
                         NotificationMessage = message,
+                        Checked = false,
                         NotificationDate = System.DateTime.Now
                     };
                     _context.Notifcation.Add(newNotification);
