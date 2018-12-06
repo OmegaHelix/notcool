@@ -30,10 +30,9 @@ namespace eIdeas.Controllers
             _signInManager = signInManager;
         }
 
-        [HttpPost]
         public async Task<IActionResult> CreateComment([Bind("CommentID,IdeaID,UserID,UserComment")] Comment comment)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _userManager.FindByIdAsync(comment.UserID) ;
             var subscriptions = from i in _context.Subscribe select i;
             var idea = from i in _context.Idea select i;
             Idea userIdea;

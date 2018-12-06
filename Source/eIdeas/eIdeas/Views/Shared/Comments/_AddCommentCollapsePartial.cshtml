@@ -7,8 +7,9 @@
 
 <div class="collapse col"  id="collapse-content-@ViewData["id"]">
     <div class="card card-body">
-        <form asp-controller="Comments" asp-action="CreateComment">
+        <form asp-controller="Comments" class="commentForm" asp-action="CreateComment">
             <input type="hidden" name="IdeaID" value="@ViewData["id"]" />
+            <input type="hidden" name="UserID" value="@UserManager.GetUserAsync(User).Result.Id" />
             <div class="form-group">
                 <label name="UserComment" class="control-label"></label>
                 <textarea name="UserComment" class="form-control"></textarea>
