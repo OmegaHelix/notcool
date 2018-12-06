@@ -7,6 +7,12 @@
 
 # !Cool
 **Authors** Dakota, Christian, Ahmed, Jeremy, Taylen, Evan
+Additions in ENSE496AB:
+* [Documentation](./Documentation/Summer Term 2018/)
+* [Milestone 1](./Milestone 1)
+* [Mockups](./Mockups)
+* [Usability Evaluation](./Usability Evaluation/Fall Term 2018/)
+
 ENSE 496AB taking over:
 # Weekend Warriors
 
