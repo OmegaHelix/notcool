@@ -33,13 +33,9 @@ for (var i = 0; i < sub.length ; i++)
 
 
 Commentconnection.on("ReceiveUpdateComment", function (userName, ideaId, userComment, getPic) {
-    //var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    alert(userComment + userName + ideaId);
-    //var encodedMsg = message + user;
-    //var span = document.createElement("span");
-    //span.textContent = encodedMsg;
-    //document.getElementById("subcribeBox").appendChild(span);
-    $("#comments-list-" + ideaId).append("< div class= \"card\" style = \"border-color: darkgrey\"><div class=\"media\"><div class=\"media-body\"><h5 class=\"mt-0\">" + userName + "</h5>" + userComment + "</div></div></div >");
+    $("#comments-list-" + ideaId).append("<div class=\"card\" style=\"border-color: darkgrey\">\
+<div class=\"media\"><div class=\"media-body\"><h5 class=\"mt-0\">" + userName + "</h5>\
+" + userComment + "</div></div></div >");
 });
 
 Commentconnection.start().catch(function (err) {
@@ -54,10 +50,12 @@ for (var i = 0; i < sub.length; i++) {
         var ideaId = form.IdeaID.value;
         var userComment = form.UserComment.value;
         var userId = form.UserID.value;
+        form.reset();
         Commentconnection.invoke("SendUpdateComment",  userId,  ideaId,  userComment).catch(function (err) {
             return console.error(err.toString());
         });
         event.preventDefault();
+       
 
     });
 }  

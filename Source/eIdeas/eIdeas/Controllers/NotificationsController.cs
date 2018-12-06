@@ -60,11 +60,10 @@ namespace eIdeas.Controllers
             return RedirectToAction(nameof(Notifications));
         }
 
-        public int NotificationsCount()
+        public string NotificationsCount(string user)
         {
             var notifications = from i in _context.Notifcation select i;
             var subscriptions = from i in _context.Subscribe select i;
-            var user = _userManager.GetUserId(User);
             List<Models.Notification> userNotifications = new List<Models.Notification>();
 
             subscriptions = subscriptions.Where(i => i.UserID.Equals(user) && i.Subscribed == true);
@@ -79,7 +78,7 @@ namespace eIdeas.Controllers
                     }
                 }
             }
-            return userNotifications.Count();
+            return userNotifications.Count().ToString() ;
         }
         
         [HttpPost]
