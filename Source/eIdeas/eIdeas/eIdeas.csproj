@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Hubs\" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Views\Shared\_ManageLayout.html" />

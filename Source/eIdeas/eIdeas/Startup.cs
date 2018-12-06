@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using eIdeas.Models;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using eIdeas.Areas.Identity.Services;
+using eIdeas.Hubs;
 
 namespace eIdeas
 {
@@ -59,6 +60,8 @@ namespace eIdeas
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSignalR();
+
             services.AddDbContext<IdeasContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("IdeasContext")));
         }
@@ -82,6 +85,11 @@ namespace eIdeas
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<SubscribeHub>("/subscribeHub");
+            });
 
             app.UseMvc(routes =>
             {
