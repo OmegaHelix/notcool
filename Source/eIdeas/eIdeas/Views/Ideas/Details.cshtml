@@ -1,86 +1,96 @@
-﻿@model eIdeas.Models.Idea
+﻿@model eIdeas.Models.IdeaViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
-
 <body id="detailspage">
     <h1 class="display-4">Details</h1>
-
+    <p></p>
     <div class="card" style="border-color: darkgrey; background-color: AliceBlue">
         <div class="card-body">
-            <div>
-                <div><span>@Html.DisplayNameFor(model => model.Name)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Name)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.Title)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Title)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.Problem)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Problem)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.Solution)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Solution)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.Status)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Status)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.UploadDate)</span></div>
-                <div><span>@Html.DisplayFor(model => model.UploadDate)</span></div>
-                <div><span>@Html.DisplayNameFor(model => model.Team)</span></div>
-                <div><span>@Html.DisplayFor(model => model.Team)</span></div>
-                <div>
-                    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-                    <a asp-action="Index">Back to List</a>
+
+            <div class="media">
+                <img class="mr-3 rounded-circle" src="@Url.Action("Photo", "eIdeasUser" , new { UserId = Model.Idea.UserID })" alt="Generic placeholder image" style="height: 64px; width: 64px;">
+                <div class="media-body">
+                    <h5 class="mt-0">@Model.Idea.Name</h5>
+                    <div><span class="text-muted">Title: </span>@Model.Idea.Title</div>
+                    <div><span class="text-muted">Problem: </span>@Model.Idea.Problem</div>
+                    <div><span class="text-muted">Solution: </span>@Model.Idea.Solution</div>
+                    <div class="container" style="padding: 0px; margin:0px; max-width: initial;">
+                        <div class="row" style="margin:0px">
+                            <div class="col-auto mr-auto col-md-9" style="padding: 0px;">
+                                <div class="progress" style="height: 25px">
+                                    @if (Model.Idea.Status == "Pending")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: orangered; width:20%;" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 60px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Pending</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Plan")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white ; background-color: orange; width:40%" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 45px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Plan</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Do")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: gold; width:60%" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 40px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Do</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Check")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: mediumseagreen; width:80%" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 50px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Check</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Act")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: dodgerblue; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 45px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Act</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Park")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: lightgray; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 45px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Park</span>
+                                        </div>
+                                    }
+                                    else if (Model.Idea.Status == "Abandon")
+                                    {
+                                        <div class="progress-bar progress-bar-striped" style="color: white; background-color: darkgrey; width:100%" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                            <span class="badge badge-pill badge-light" style="width: 65px; height: 17px; font-size: 12px; margin-left: auto; margin-right: auto">Abandon</span>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="col-auto">
+                                <p>
+                                    <a asp-action="Edit" asp-route-id="@Model.Idea.ID">Edit</a> |
+                                    <a asp-action="Index">Back to List</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", Model.Comments, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", Model.UserLike, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID }, { "LikeCount", Model.LikeCount } })</span>
+                        </div>
+                        <div class="col-sm-1">
+                            <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", Model.Subscription, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })</span>
+                        </div>
+                    </div>
+                    <div>
+                        @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", Model.Comments)
+                    </div>
+                    <div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </body>
-
-
-<!--
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Problem)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Problem)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Solution)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Solution)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UploadDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UploadDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Team)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Team)
-        </dd>
-    </dl>
-</div>
--->
-

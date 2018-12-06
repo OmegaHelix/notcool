@@ -118,6 +118,10 @@ namespace eIdeas.Controllers
         // GET: Ideas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var likes = from i in _context.Like select i;
+            var subscriptions = from i in _context.Subscribe select i;
+            var user = await _userManager.GetUserAsync(User);
+
             if (id == null)
             {
                 return NotFound();
@@ -129,8 +133,21 @@ namespace eIdeas.Controllers
             {
                 return NotFound();
             }
-
-            return View(idea);
+            Like userLike;
+            Subscribe userSub;
+            var ideaComments = await _context.Comment.Where(i => i.IdeaID.Equals(id)).ToListAsync();
+            var ideaLikes = likes.Where(i => i.IdeaID.Equals(id) && i.Liked == true);
+            userLike = await ideaLikes.Where(i => i.UserID.Equals(user.Id)).FirstOrDefaultAsync();
+            userSub = await subscriptions.Where(i => i.UserID == user.Id && i.IdeaID == id).FirstOrDefaultAsync();
+            IdeaViewModel formattedIdea = new IdeaViewModel
+            {
+                Idea = idea,
+                Comments = ideaComments,
+                LikeCount = ideaLikes.Count(),
+                UserLike = userLike,
+                Subscription = userSub
+            };
+            return View(formattedIdea);
         }
 
         // GET: Ideas/Create
