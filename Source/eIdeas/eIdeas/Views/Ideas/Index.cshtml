@@ -115,7 +115,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-1">
-                                <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
+                                <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentButtonPartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
                             </div>
                             <div class="col-sm-1">
                                 <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", item.UserLike, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID }, { "LikeCount", item.LikeCount } })</span>
@@ -124,10 +124,11 @@
                                 <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", item.Subscription, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })</span>
                             </div>
                         </div>
-                        <div>
-                            @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", item.Comments)
+                        <div class="row">
+                        @await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentCollapsePartial.cshtml", item.Comments, new ViewDataDictionary(ViewData) { { "id", item.Idea.ID } })
                         </div>
                         <div>
+                            @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", item.Comments)
                         </div>
                     </div>
                 </div>

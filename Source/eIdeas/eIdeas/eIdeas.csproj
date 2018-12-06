@@ -21,6 +21,9 @@
     <Content Remove="wwwroot\images\svg\account-logout.svg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Update="Views\Shared\Comments\_AddCommentCollapsePartial.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Views\Shared\_HorizontalNavPartial.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

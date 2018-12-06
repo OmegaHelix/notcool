@@ -76,7 +76,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-1">
-                            <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentPartial.cshtml", Model.Comments, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })</span>
+                            <span>@await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentButtonPartial.cshtml", Model.Comments, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })</span>
                         </div>
                         <div class="col-sm-1">
                             <span>@await Html.PartialAsync("~/Views/Shared/_LikePartial.cshtml", Model.UserLike, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID }, { "LikeCount", Model.LikeCount } })</span>
@@ -84,6 +84,9 @@
                         <div class="col-sm-1">
                             <span>@await Html.PartialAsync("~/Views/Shared/_SubscriptionPartial.cshtml", Model.Subscription, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })</span>
                         </div>
+                    </div>
+                    <div class="row">
+                        @await Html.PartialAsync("~/Views/Shared/Comments/_AddCommentCollapsePartial.cshtml", Model.Comments, new ViewDataDictionary(ViewData) { { "id", Model.Idea.ID } })
                     </div>
                     <div>
                         @await Html.PartialAsync("~/Views/Shared/Comments/_CommentPartial.cshtml", Model.Comments)
