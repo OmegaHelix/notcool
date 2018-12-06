@@ -21,5 +21,13 @@
       "node_modules/jquery/dist/jquery.min.js"
     ],
     "minify": { "enabled": false }
+  },
+  {
+    "outputFileName": "wwwroot/lib/signalr/signalr.js",
+    "inputFiles": [
+      "node_modules/signalr/jquery.signalR.js"
+    ],
+    "minify": { "enabled": false }
   }
+
 ]
