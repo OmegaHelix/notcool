@@ -33,14 +33,16 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark " style="background-color: #1189CB;">
         <a asp-area="" asp-controller="Ideas" asp-action="Index" class="navbar-brand">eIdeas</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-               
+                <li class="nav-item">
+                    <a class="nav-link" asp-area="" asp-controller="Ideas" asp-action="Index" style="background-color: grey">back</a>
+                </li>
             </ul>
             <partial name="_LoginPartial" />
         </div>
